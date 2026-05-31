@@ -40,7 +40,7 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       status: 'ABE'
     };
 
-    const res = await fetch('http://localhost:8000/ocorrencias/api', {
+    const res = await fetch('http://127.0.0.1:8000/ocorrencias/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -51,7 +51,7 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}>Nova Ocorrência</Text>
 
       <Text style={styles.label}>Título</Text>
@@ -89,7 +89,7 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       </View>
       
       <View style={{ height: 40 }} />
-    </ScrollView>
+    </View>
   );
 };
 
