@@ -12,9 +12,9 @@ export type DrawerParamList = {
   // Usuarios: undefined;
   // CriarUsuario: undefined;
   // EditarUsuario: { usuario: Usuario };
-   Ocorrencias: undefined;
-   CriarOcorrencia: undefined;
-   EditarOcorrencia: { ocorrencia: Ocorrencia };
+  Ocorrencias: undefined;
+  CriarOcorrencia: undefined;
+  EditarOcorrencia: { ocorrencia: Ocorrencia };
   // Servicos: undefined;
   // CriarServico: undefined;
   // EditarServico: { servico: Servico };
@@ -52,7 +52,7 @@ const DrawerNavigator = () => {
           title: 'Início',
         }}
       />
-      { <Drawer.Screen
+      <Drawer.Screen
         name="Ocorrencias"
         component={OcorrenciasScreen}
         options={{
@@ -60,16 +60,15 @@ const DrawerNavigator = () => {
           title: 'Ocorrências',
         }}
       />
-      /* <Drawer.Screen
+       <Drawer.Screen
         name="CriarOcorrencia"
         component={CriarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova ocorrência' }}
-      
-      /*  />
-      /* <Drawer.Screen
-        name="EditarCategory"
-        component={EditarCategoryScreen}
-        options={{ drawerItemStyle: { display: 'none' }, title: 'Editar categoria' }}
+      />
+      {/*<Drawer.Screen
+        name="EditarOcorrencia"
+        component={EditarOcorrenciaScreen}
+        options={{ drawerItemStyle: { display: 'none' }, title: 'Editar Ocorrência' }}
       />
       <Drawer.Screen
         name="Usuarios"
@@ -110,7 +109,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="Equipamentos"
         component={EquipamentosScreen}
-        options={{  drawerIcon: ({ color, size }) => <Ionicons name="hardware-chip" size={size} color={color} />, title: 'Equipamentos' }}
+        options={{ drawerIcon: ({ color, size }) => <Ionicons name="hardware-chip" size={size} color={color} />, title: 'Equipamentos' }}
       />
       <Drawer.Screen
         name="CriarEquipamento"
