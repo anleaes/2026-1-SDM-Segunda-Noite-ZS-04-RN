@@ -5,6 +5,7 @@ import CustomDrawerContent from '../src/components/CustomDrawerContent';
 import HomeScreen from '../screens/HomeScreen';
 import OcorrenciasScreen, { Ocorrencia } from '../screens/OcorrenciasScreen';
 import CriarOcorrenciaScreen from '../screens/CriarOcorrenciaScreen';
+import EditarOcorrenciaScreen from '../screens/EditarOcorrenciaScreen';
 
 
 export type DrawerParamList = {
