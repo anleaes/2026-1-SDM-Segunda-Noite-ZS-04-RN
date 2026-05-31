@@ -1,0 +1,197 @@
+import { Ionicons } from '@expo/vector-icons';
+import { DrawerScreenProps } from '@react-navigation/drawer';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
+import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { DrawerParamList } from '../navigation/DrawerNavigator';
+
+type Props = DrawerScreenProps<DrawerParamList, 'Ocorrencias'>;
+
+export type Ocorrencia = {
+  id: number;
+  titulo: string;
+  endereco: string;
+  numero: string;
+  descricao: string;
+  status: 'ABE' | 'AND' | 'FEC';
+  criado_em: string;
+};
+
+const OcorrenciasScreen = ({ navigation }: Props) => {
+  const [ocorrencias, setOcorrencias] = useState<Ocorrencia[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchOcorrencias = async () => {
+    setLoading(true);
+    const response = await fetch('http:/localhost:8000/ocorrencias/api/');
+    const data = await response.json();
+    setOcorrencias(data);
+    setLoading(false);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchOcorrencias();
+    }, [])
+  );
+
+  const handleDelete = async (id: number) => {
+    await fetch(`http://localhost:8000/ocorrencias/api/${id}/`, {
+      method: 'DELETE',
+    });
+    setOcorrencias(prev => prev.filter(o => o.id !== id));
+  };
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'ABE': return 'Aberta';
+      case 'AND': return 'Em Andamento';
+      case 'FEC': return 'Fechada';
+      default: return status;
+    }
+  };
+
+  const renderItem = ({ item }: { item: Ocorrencia }) => (
+    <View style={styles.card}>
+      <View style={styles.headerCard}>
+        <Text style={styles.titulo}>{item.titulo}</Text>
+        <Text style={styles.status}>{getStatusLabel(item.status)}</Text>
+      </View>
+      
+      <Text style={styles.endereco}>{item.endereco}, {item.numero}</Text>
+      <Text style={styles.descricao} numberOfLines={2}>{item.descricao}</Text>
+      
+      <View style={styles.row}>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => navigation.navigate('EditarOcorrencia', { ocorrencia: item })}
+        >
+          <Text style={styles.buttonText}>Editar</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => handleDelete(item.id)}
+        >
+          <Text style={styles.buttonText}>Excluir</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  return ( 
+    <View style={styles.container}>
+      <Text style={styles.title}>Ocorrências</Text>
+      {loading ? (
+        <ActivityIndicator size="large" color="#4B7BE5" />
+      ) : (
+        <FlatList
+          data={ocorrencias}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        />
+      )}
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={() => navigation.navigate('CriarOcorrencia')}
+      >
+        <Ionicons name="add" size={28} color="#fff" />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    color: '#333',
+    alignSelf: 'center',
+  },
+  card: {
+    backgroundColor: '#f8f9fa',
+    padding: 16,
+    borderRadius: 10,
+    marginBottom: 12,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    borderLeftWidth: 4,
+    borderLeftColor: '#4B7BE5',
+  },
+  headerCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  titulo: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#001f3f',
+    flex: 1,
+  },
+  status: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#d9534f',
+    backgroundColor: '#ffebeb',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+  endereco: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#555',
+    marginBottom: 4,
+  },
+  descricao: {
+    fontSize: 14,
+    color: '#666',
+  },
+  row: { 
+    flexDirection: 'row', 
+    marginTop: 12, 
+    justifyContent: 'flex-end',
+  },
+  editButton: {
+    backgroundColor: '#17a2b8',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+    marginRight: 8,
+  },
+  deleteButton: {
+    backgroundColor: '#E54848',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+  },
+  buttonText: { 
+    color: '#fff', 
+    fontWeight: '500' 
+  },
+  fab: {
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
+    backgroundColor: '#0D47A1',
+    borderRadius: 28,
+    padding: 14,
+    elevation: 4,
+  },
+});
+
+export default OcorrenciasScreen;
