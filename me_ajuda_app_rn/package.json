@@ -1,6 +1,6 @@
 {
   "name": "me_ajuda_app_rn",
-  "main": "expo-router/entry",
+  "main": "src/app/index.tsx",
   "version": "1.0.0",
   "dependencies": {
     "@expo/ui": "~56.0.15",

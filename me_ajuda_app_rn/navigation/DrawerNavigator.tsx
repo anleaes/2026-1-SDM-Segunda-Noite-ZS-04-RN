@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import CustomDrawerContent from '../src/components/CustomDrawerContent';
-import HomeScreen from '@/app';
+import HomeScreen from '../screens/HomeScreen';
 
 
 export type DrawerParamList = {
