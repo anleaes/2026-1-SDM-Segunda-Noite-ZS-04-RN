@@ -15,6 +15,7 @@ export type Ocorrencia = {
   descricao: string;
   status: 'ABE' | 'AND' | 'FEC';
   criado_em: string;
+  complemento?: string;
 };
 
 const OcorrenciasScreen = ({ navigation }: Props) => {
