@@ -11,9 +11,9 @@ export type DrawerParamList = {
   // Usuarios: undefined;
   // CriarUsuario: undefined;
   // EditarUsuario: { usuario: Usuario };
-  // Ocorrencias: undefined;
-  // CriarOcorrencia: undefined;
-  // EditarOcorrencia: { ocorrencia: Ocorrencia };
+   Ocorrencias: undefined;
+   CriarOcorrencia: undefined;
+   EditarOcorrencia: { ocorrencia: Ocorrencia };
   // Servicos: undefined;
   // CriarServico: undefined;
   // EditarServico: { servico: Servico };
