@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import CustomDrawerContent from '../src/components/CustomDrawerContent';
 import HomeScreen from '../screens/HomeScreen';
+import OcorrenciasScreen, { Ocorrencia } from '../screens/OcorrenciasScreen';
 
 
 export type DrawerParamList = {
@@ -50,7 +51,7 @@ const DrawerNavigator = () => {
           title: 'Início',
         }}
       />
-      {/* <Drawer.Screen
+      { <Drawer.Screen
         name="Ocorrencias"
         component={OcorrenciasScreen}
         options={{
@@ -58,7 +59,7 @@ const DrawerNavigator = () => {
           title: 'Ocorrências',
         }}
       />
-      <Drawer.Screen
+      /* <Drawer.Screen
         name="CriarOcorrencia"
         component={CriarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova ocorrência' }}
