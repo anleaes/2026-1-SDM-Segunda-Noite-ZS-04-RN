@@ -13,7 +13,7 @@ const EditarOcorrenciaScreen = ({ route, navigation }: Props) => {
   const [numero, setNumero] = useState(ocorrencia.numero);
   const [complemento, setComplemento] = useState(ocorrencia.complemento || '');
   const [descricao, setDescricao] = useState(ocorrencia.descricao);
-  const [status, setStatus] = useState(ocorrencia.status);
+  const [status, setStatus] = useState<string>(ocorrencia.status);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
