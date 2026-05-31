@@ -4,6 +4,7 @@ import React from 'react';
 import CustomDrawerContent from '../src/components/CustomDrawerContent';
 import HomeScreen from '../screens/HomeScreen';
 import OcorrenciasScreen, { Ocorrencia } from '../screens/OcorrenciasScreen';
+import CriarOcorrenciaScreen from '../screens/CriarOcorrenciaScreen';
 
 
 export type DrawerParamList = {
@@ -63,8 +64,9 @@ const DrawerNavigator = () => {
         name="CriarOcorrencia"
         component={CriarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova ocorrência' }}
-      />
-      <Drawer.Screen
+      
+      /*  />
+      /* <Drawer.Screen
         name="EditarCategory"
         component={EditarCategoryScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar categoria' }}
