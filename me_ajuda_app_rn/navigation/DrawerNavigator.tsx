@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen';
 import OcorrenciasScreen, { Ocorrencia } from '../screens/OcorrenciasScreen';
 import CriarOcorrenciaScreen from '../screens/CriarOcorrenciaScreen';
 import EditarOcorrenciaScreen from '../screens/EditarOcorrenciaScreen';
+import ServicosScreen, { Servico } from '../screens/ServicosScreen';
 import EquipamentosScreen, { Equipamento } from '../screens/EquipamentosScreen';
 
 
@@ -17,9 +18,9 @@ export type DrawerParamList = {
   Ocorrencias: undefined;
   CriarOcorrencia: undefined;
   EditarOcorrencia: { ocorrencia: Ocorrencia };
-  // Servicos: undefined;
-  // CriarServico: undefined;
-  // EditarServico: { servico: Servico };
+   Servicos: undefined;
+   CriarServico: undefined;
+   EditarServico: { servico: Servico };
   Equipamentos: undefined;
   CriarEquipamento: undefined;
   EditarEquipamento: { equipamento: Equipamento };
@@ -89,7 +90,7 @@ const DrawerNavigator = () => {
         name="EditarUsuario"
         component={EditarUsuarioScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar usuário' }}
-      />
+      /> */
       <Drawer.Screen
         name="Servicos"
         component={ServicosScreen}
@@ -98,7 +99,7 @@ const DrawerNavigator = () => {
           title: 'Serviços',
         }}
       />
-      <Drawer.Screen
+      /* <Drawer.Screen
         name="CriarServico"
         component={CriarServicoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Novo serviço' }}
