@@ -66,12 +66,12 @@ const DrawerNavigator = () => {
         component={CriarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova ocorrência' }}
       />
-      {/*<Drawer.Screen
+      <Drawer.Screen
         name="EditarOcorrencia"
         component={EditarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar Ocorrência' }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Usuarios"
         component={UsuariosScreen}
         options={{
