@@ -1,7 +1,7 @@
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
-import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { DrawerParamList } from '../navigation/DrawerNavigator';
 
 type Props = DrawerScreenProps<DrawerParamList, 'CriarOcorrencia'>;
@@ -40,7 +40,7 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       status: 'ABE'
     };
 
-    const res = await fetch('http://localhost:8000/ocorrencias/api', {
+    const res = await fetch('http://localhost:8000/ocorrencias/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -51,7 +51,7 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Nova Ocorrência</Text>
 
       <Text style={styles.label}>Título</Text>
@@ -89,7 +89,7 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       </View>
       
       <View style={{ height: 40 }} />
-    </View>
+    </ScrollView>
   );
 };
 

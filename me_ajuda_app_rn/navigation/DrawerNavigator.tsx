@@ -52,10 +52,10 @@ const DrawerNavigator = () => {
       initialRouteName="Home"
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
-        drawerActiveTintColor: '#4B7BE5',
+        drawerActiveTintColor: '#1a325a',
         drawerLabelStyle: { marginLeft: 0, fontSize: 16 },
         drawerStyle: { backgroundColor: '#fff', width: 250 },
-        headerStyle: { backgroundColor: '#4B7BE5' },
+        headerStyle: { backgroundColor: '#1a325a' },
         headerTintColor: '#fff',
       }}
     >
