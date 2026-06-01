@@ -39,7 +39,7 @@ const CidadaosScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://localhost:8000/cidadaos/api/${id}/`, {
+    await fetch(`http://localhost:8000/cidadaos/${id}/`, {
       method: 'DELETE',
     });
     setCidadaos(prev => prev.filter(u => u.id !== id));
