@@ -6,72 +6,54 @@ import { DrawerParamList } from '../navigation/DrawerNavigator';
 
 type Props = DrawerScreenProps<DrawerParamList, 'EditarFuncionario'>;
 
-const EditarUsuarioScreen = ({ route, navigation }: Props) => {
-  const { usuario } = route.params;
+const EditarFuncionarioScreen = ({ route, navigation }: Props) => {
+  const { funcionario } = route.params;
 
-  const isFuncionario = usuario.tipo_usuario === 'funcionario';
-  const tipoInicial = isFuncionario ? 'funcionario' : 'cidadao';
-  const [tipoUsuario, setTipoUsuario] = useState<'cidadao' | 'funcionario'>(tipoInicial);
 
-  const [nome, setNome] = useState(usuario.nome || '');
-  const [sobrenome, setSobrenome] = useState(usuario.sobrenome || '');
-  const [cpf, setCpf] = useState(usuario.cpf || '');
-  const [email, setEmail] = useState(usuario.email || '');
+  const [nome, setNome] = useState(funcionario.nome || '');
+  const [sobrenome, setSobrenome] = useState(funcionario.sobrenome || '');
+  const [cpf, setCpf] = useState(funcionario.cpf || '');
+  const [email, setEmail] = useState(funcionario.email || '');
 
-  const [fone, setFone] = useState(usuario.fone || '');
-  const [endereco, setEndereco] = useState(usuario.endereco || '');
-  const [cep, setCep] = useState(usuario.cep || '');
-  const [bairro, setBairro] = useState(usuario.bairro || '');
+  const [registro, setRegistro] = useState(funcionario.registro || '');
+  const [funcao, setFuncao] = useState(funcionario.funcao || 'TEC');
+  const [ativo, setAtivo] = useState(funcionario.ativo !== undefined ? funcionario.ativo : true);
+  const [secretarias, setSecretarias] = useState(funcionario.secretarias ? funcionario.secretarias.join(',') : '');
 
-  const [registro, setRegistro] = useState(usuario.registro || '');
-  const [funcao, setFuncao] = useState(usuario.funcao || 'TEC');
-  const [ativo, setAtivo] = useState(usuario.ativo !== undefined ? usuario.ativo : true);
-  const [secretarias, setSecretarias] = useState(usuario.secretarias ? usuario.secretarias.join(',') : '');
-
-  const [userId, setUserId] = useState(String(usuario.user));
+  const [userId, setUserId] = useState(String(funcionario.user));
 
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    const tipo = isFuncionario ? 'funcionario' : 'cidadao';
-    setTipoUsuario(tipo);
-    setNome(usuario.nome || '');
-    setSobrenome(usuario.sobrenome || '');
-    setCpf(usuario.cpf || '');
-    setEmail(usuario.email || '');
-    setFone(usuario.fone || '');
-    setEndereco(usuario.endereco || '');
-    setCep(usuario.cep || '');
-    setBairro(usuario.bairro || '');
-    setRegistro(usuario.registro || '');
-    setFuncao(usuario.funcao || 'TEC');
-    setAtivo(usuario.ativo !== undefined ? usuario.ativo : true);
-    setSecretarias(usuario.secretarias ? usuario.secretarias.join(',') : '');
-    setUserId(String(usuario.user));
-  }, [usuario]);
+    setNome(funcionario.nome || '');
+    setSobrenome(funcionario.sobrenome || '');
+    setCpf(funcionario.cpf || '');
+    setEmail(funcionario.email || '');
+    setRegistro(funcionario.registro || '');
+    setFuncao(funcionario.funcao || 'TEC');
+    setAtivo(funcionario.ativo !== undefined ? funcionario.ativo : true);
+    setSecretarias(funcionario.secretarias ? funcionario.secretarias.join(',') : '');
+    setUserId(String(funcionario.user));
+  }, [funcionario]);
 
   const handleSave = async () => {
     setSaving(true);
 
-    const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario, user: parseInt(userId) };
+    const payload: any = { nome, sobrenome, cpf, email, user: parseInt(userId) };
 
     let rotaApi = '';
 
-    if (tipoUsuario === 'cidadao') {
-      Object.assign(payload, { fone, endereco, cep, bairro });
-      rotaApi = 'cidadaos';
-    } else {
-      Object.assign(payload, { registro, funcao, ativo, secretarias: secretarias.split(',').map(s => parseInt(s.trim())) });
-      rotaApi = 'funcionarios';
-    }
 
-    await fetch(`http://localhost:8000/${rotaApi}/${usuario.id}/`, {
+    Object.assign(payload, { registro, funcao, ativo, secretarias: secretarias.split(',').map(s => parseInt(s.trim())) });
+    rotaApi = 'funcionarios';
+
+    await fetch(`http://localhost:8000/${rotaApi}/${funcionario.id}/`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
 
-    navigation.navigate('Usuarios');
+    navigation.navigate('Funcionarios');
     setSaving(false);
   };
 
@@ -95,40 +77,36 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
       <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric" />
 
 
-      {tipoUsuario === 'funcionario' && (
-        <>
-          <Text style={styles.sectionTitle}>Dados do Funcionário</Text>
+      <Text style={styles.sectionTitle}>Dados do Funcionário</Text>
 
-          <Text style={styles.label}>Secretarias (IDs, separados por vírgula)</Text>
-          <TextInput
-            value={secretarias}
-            onChangeText={setSecretarias}
-            style={styles.input}
-            placeholder="Ex: 1, 2, 3"
-          />
+      <Text style={styles.label}>Secretarias (IDs, separados por vírgula)</Text>
+      <TextInput
+        value={secretarias}
+        onChangeText={setSecretarias}
+        style={styles.input}
+        placeholder="Ex: 1, 2, 3"
+      />
 
-          <Text style={styles.label}>Registro (Matrícula)</Text>
-          <TextInput value={registro} onChangeText={setRegistro} style={styles.input} />
+      <Text style={styles.label}>Registro (Matrícula)</Text>
+      <TextInput value={registro} onChangeText={setRegistro} style={styles.input} />
 
-          <Text style={styles.label}>Função</Text>
-          <View style={styles.pickerContainer}>
-            <Picker selectedValue={funcao} onValueChange={setFuncao}>
-              <Picker.Item label="Técnico (TEC)" value="TEC" />
-              <Picker.Item label="Gestor (GES)" value="GES" />
-              <Picker.Item label="Analista (ANA)" value="ANA" />
-            </Picker>
-          </View>
+      <Text style={styles.label}>Função</Text>
+      <View style={styles.pickerContainer}>
+        <Picker selectedValue={funcao} onValueChange={setFuncao}>
+          <Picker.Item label="Técnico (TEC)" value="TEC" />
+          <Picker.Item label="Gestor (GES)" value="GES" />
+          <Picker.Item label="Analista (ANA)" value="ANA" />
+        </Picker>
+      </View>
 
-          <View style={styles.switchContainer}>
-            <Text style={styles.labelSwitch}>Funcionário Ativo?</Text>
-            <Switch
-              value={ativo}
-              onValueChange={setAtivo}
-              trackColor={{ false: "#ccc", true: "#4B7BE5" }}
-            />
-          </View>
-        </>
-      )}
+      <View style={styles.switchContainer}>
+        <Text style={styles.labelSwitch}>Funcionário Ativo?</Text>
+        <Switch
+          value={ativo}
+          onValueChange={setAtivo}
+          trackColor={{ false: "#ccc", true: "#4B7BE5" }}
+        />
+      </View>
 
       <View style={styles.buttonSpacer}>
         {saving ? (
@@ -137,7 +115,7 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
           <Button title="Salvar" onPress={handleSave} color="#4B7BE5" />
         )}
       </View>
-      <Button title="Voltar" onPress={() => navigation.navigate('Usuarios')} color="#6c757d" />
+      <Button title="Voltar" onPress={() => navigation.navigate('Funcionarios')} color="#6c757d" />
 
       <View style={{ height: 40 }} />
     </ScrollView>
