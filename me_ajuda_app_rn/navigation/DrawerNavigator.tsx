@@ -9,6 +9,7 @@ import EditarOcorrenciaScreen from '../screens/EditarOcorrenciaScreen';
 import ServicosScreen, { Servico } from '../screens/ServicosScreen';
 import EquipamentosScreen, { Equipamento } from '../screens/EquipamentosScreen';
 import CriarEquipamentoScreen from '../screens/CriarEquipamentoScreen';
+import EditarEquipamentoScreen from '../screens/EditarEquipamentoScreen';
 
 
 export type DrawerParamList = {
@@ -120,12 +121,12 @@ const DrawerNavigator = () => {
         component={CriarEquipamentoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Novo equipamento' }}
       />
-      {/*<Drawer.Screen
+      <Drawer.Screen
         name="EditarEquipamento"
         component={EditarEquipamentoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar equipamento' }}
       />
-      <Drawer.Screen
+      {/*<Drawer.Screen
         name="Secretarias"
         component={SecretariasScreen}
         options={{ drawerIcon: ({ color, size }) => <Ionicons name="business-outline" size={size} color={color} />, title: 'Secretarias' }}
