@@ -10,6 +10,7 @@ import ServicosScreen, { Servico } from '../screens/ServicosScreen';
 import EquipamentosScreen, { Equipamento } from '../screens/EquipamentosScreen';
 import CriarEquipamentoScreen from '../screens/CriarEquipamentoScreen';
 import EditarEquipamentoScreen from '../screens/EditarEquipamentoScreen';
+import IntervencoesScreen, { Intervencao } from '../screens/IntervencoesScreen';
 
 
 export type DrawerParamList = {
@@ -29,9 +30,9 @@ export type DrawerParamList = {
   // Secretarias: undefined;
   // CriarSecretaria: undefined;
   // EditarSecretaria: { secretaria: Secretaria };
-  // Intervencoes: undefined;
-  // CriarIntervencao: undefined;
-  // EditarIntervencao: { intervencao: Intervencao };
+  Intervencoes: undefined;
+  CriarIntervencao: undefined;
+  EditarIntervencao: { intervencao: Intervencao };
 };
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -140,13 +141,13 @@ const DrawerNavigator = () => {
         name="EditSecretaria"
         component={EditarSecretariaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar secretaria' }}
-      />
+      />*/}
       <Drawer.Screen
         name="Intervencoes"
         component={IntervencoesScreen}
         options={{ drawerIcon: ({ color, size }) => <Ionicons name="construct-outline" size={size} color={color} />, title: 'Intervenções' }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="CriarIntervencao"
         component={CriarIntervencaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova intervenção' }}
@@ -155,7 +156,7 @@ const DrawerNavigator = () => {
         name="EditIntervencao"
         component={EditarIntervencaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar intervenção' }}
-      /> */}
+      />  */}
     </Drawer.Navigator>
   );
 };
