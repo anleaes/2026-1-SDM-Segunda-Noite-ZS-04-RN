@@ -15,13 +15,14 @@ import CriarIntervencaoScreen from '../screens/CriarIntervencaoScreen';
 import EditarIntervencaoScreen from '../screens/EditarIntervencaoScreen';
 import CriarServicoScreen from '../screens/CriarServicoScreen';
 import EditarServicoScreen from '../screens/EditarServicoScreen';
-
+import SecretariasScreen, { Secretaria } from '../screens/SecretariasScreen';
+import UsuariosScreen, { Usuario } from '../screens/UsuariosScreen';
 
 export type DrawerParamList = {
   Home: undefined;
-  // Usuarios: undefined;
-  // CriarUsuario: undefined;
-  // EditarUsuario: { usuario: Usuario };
+  Usuarios: undefined;
+  CriarUsuario: undefined;
+  EditarUsuario: { usuario: Usuario };
   Ocorrencias: undefined;
   CriarOcorrencia: undefined;
   EditarOcorrencia: { ocorrencia: Ocorrencia };
@@ -166,4 +167,3 @@ const DrawerNavigator = () => {
 };
 
 export default DrawerNavigator;
-import SecretariasScreen, { Secretaria } from '../screens/SecretariasScreen';
