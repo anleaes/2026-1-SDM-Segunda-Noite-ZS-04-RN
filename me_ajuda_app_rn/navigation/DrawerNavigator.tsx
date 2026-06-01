@@ -21,6 +21,7 @@ import CriarUsuarioScreen from '../screens/CriarUsuarioScreen';
 import CriarSecretariaScreen from '../screens/CriarSecretariaScreen';
 import EditarSecretariaScreen from '../screens/EditarSecretariaScreen';
 import EditarUsuarioScreen from '../screens/EditarUsuarioScreen';
+import CidadaosScreen, { Cidadao } from '../screens/CidadaosScreen';
 
 export type DrawerParamList = {
   Home: undefined;
@@ -42,6 +43,12 @@ export type DrawerParamList = {
   Intervencoes: undefined;
   CriarIntervencao: undefined;
   EditarIntervencao: { intervencao: Intervencao };
+  Cidadaos: undefined;
+  CriarCidadao: undefined;
+  EditarCidadao: { cidadao: Cidadao };
+  Funcionarios: undefined;
+  CriarFuncionario: undefined;
+  EditarFuncionario: { funcionario: Funcionario };
 };
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -166,6 +173,42 @@ const DrawerNavigator = () => {
         component={EditarIntervencaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar intervenção' }}
       />
+      <Drawer.Screen
+        name="Cidadaos"
+        component={CidadaosScreen}
+        options={{
+          drawerIcon: ({ color, size }) => <Ionicons name="people" size={size} color={color} />,
+          title: 'Cidadãos',
+        }}
+      />
+      {/* <Drawer.Screen
+        name="CriarCidadao"
+        component={CriarCidadaoScreen}
+        options={{ drawerItemStyle: { display: 'none' }, title: 'Novo cidadão' }}
+      />
+      <Drawer.Screen
+        name="EditarCidadao"
+        component={EditarCidadaoScreen}
+        options={{ drawerItemStyle: { display: 'none' }, title: 'Editar cidadão' }}
+      />
+      <Drawer.Screen
+        name="Funcionarios"
+        component={FuncionariosScreen}
+        options={{
+          drawerIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
+          title: 'Funcionários',
+        }}
+      />
+      <Drawer.Screen
+        name="CriarFuncionario"
+        component={CriarFuncionarioScreen}
+        options={{ drawerItemStyle: { display: 'none' }, title: 'Novo funcionário' }}
+      />
+      <Drawer.Screen
+        name="EditarFuncionario"
+        component={EditarFuncionarioScreen}
+        options={{ drawerItemStyle: { display: 'none' }, title: 'Editar funcionário' }}
+      /> */}
     </Drawer.Navigator>
   );
 };
