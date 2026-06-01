@@ -31,9 +31,9 @@ export type DrawerParamList = {
   Equipamentos: undefined;
   CriarEquipamento: undefined;
   EditarEquipamento: { equipamento: Equipamento };
-  // Secretarias: undefined;
-  // CriarSecretaria: undefined;
-  // EditarSecretaria: { secretaria: Secretaria };
+  Secretarias: undefined;
+  CriarSecretaria: undefined;
+  EditarSecretaria: { secretaria: Secretaria };
   Intervencoes: undefined;
   CriarIntervencao: undefined;
   EditarIntervencao: { intervencao: Intervencao };
@@ -166,3 +166,4 @@ const DrawerNavigator = () => {
 };
 
 export default DrawerNavigator;
+import SecretariasScreen, { Secretaria } from '../screens/SecretariasScreen';
