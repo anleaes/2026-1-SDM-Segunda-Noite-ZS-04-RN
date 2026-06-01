@@ -11,6 +11,7 @@ import EquipamentosScreen, { Equipamento } from '../screens/EquipamentosScreen';
 import CriarEquipamentoScreen from '../screens/CriarEquipamentoScreen';
 import EditarEquipamentoScreen from '../screens/EditarEquipamentoScreen';
 import IntervencoesScreen, { Intervencao } from '../screens/IntervencoesScreen';
+import CriarIntervencaoScreen from '../screens/CriarIntervencaoScreen';
 
 
 export type DrawerParamList = {
@@ -147,12 +148,12 @@ const DrawerNavigator = () => {
         component={IntervencoesScreen}
         options={{ drawerIcon: ({ color, size }) => <Ionicons name="construct-outline" size={size} color={color} />, title: 'Intervenções' }}
       />
-      {/* <Drawer.Screen
+      <Drawer.Screen
         name="CriarIntervencao"
         component={CriarIntervencaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova intervenção' }}
       />
-      <Drawer.Screen
+      {/*<Drawer.Screen
         name="EditIntervencao"
         component={EditarIntervencaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar intervenção' }}
