@@ -9,7 +9,8 @@ type Props = DrawerScreenProps<DrawerParamList, 'EditarUsuario'>;
 const EditarUsuarioScreen = ({ route, navigation }: Props) => {
   const { usuario } = route.params;
 
-  const tipoInicial = usuario.registro ? 'funcionario' : 'cidadao';
+  const isFuncionario = usuario.tipo_usuario === 'funcionario';
+  const tipoInicial = isFuncionario ? 'funcionario' : 'cidadao';
   const [tipoUsuario, setTipoUsuario] = useState<'cidadao' | 'funcionario'>(tipoInicial);
 
   const [nome, setNome] = useState(usuario.nome || '');
@@ -25,13 +26,14 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
   const [registro, setRegistro] = useState(usuario.registro || '');
   const [funcao, setFuncao] = useState(usuario.funcao || 'TEC');
   const [ativo, setAtivo] = useState(usuario.ativo !== undefined ? usuario.ativo : true);
+  const [secretarias, setSecretarias] = useState(usuario.secretarias ? usuario.secretarias.join(',') : '');
 
   const [userId, setUserId] = useState(String(usuario.user));
 
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    const tipo = usuario.registro ? 'funcionario' : 'cidadao';
+    const tipo = isFuncionario ? 'funcionario' : 'cidadao';
     setTipoUsuario(tipo);
     setNome(usuario.nome || '');
     setSobrenome(usuario.sobrenome || '');
@@ -44,6 +46,7 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
     setRegistro(usuario.registro || '');
     setFuncao(usuario.funcao || 'TEC');
     setAtivo(usuario.ativo !== undefined ? usuario.ativo : true);
+    setSecretarias(usuario.secretarias ? usuario.secretarias.join(',') : '');
     setUserId(String(usuario.user));
   }, [usuario]);
 
@@ -52,13 +55,17 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
 
     const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario, user: parseInt(userId) };
 
+    let rotaApi = '';
+
     if (tipoUsuario === 'cidadao') {
       Object.assign(payload, { fone, endereco, cep, bairro });
+      rotaApi = 'cidadaos';
     } else {
-      Object.assign(payload, { registro, funcao, ativo });
+      Object.assign(payload, { registro, funcao, ativo, secretarias: secretarias.split(',').map(s => parseInt(s.trim())) });
+      rotaApi = 'funcionarios';
     }
 
-    await fetch(`http://localhost:8000/usuarios/api/${usuario.id}/`, {
+    await fetch(`http://localhost:8000/${rotaApi}/${usuario.id}/`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -85,7 +92,7 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
       <TextInput value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
 
       <Text style={styles.label}>ID do User</Text>
-      <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric"/>
+      <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric" />
 
       {tipoUsuario === 'cidadao' && (
         <>
@@ -107,6 +114,15 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
       {tipoUsuario === 'funcionario' && (
         <>
           <Text style={styles.sectionTitle}>Dados do Funcionário</Text>
+
+          <Text style={styles.label}>Secretarias (IDs, separados por vírgula)</Text>
+          <TextInput
+            value={secretarias}
+            onChangeText={setSecretarias}
+            style={styles.input}
+            placeholder="Ex: 1, 2, 3"
+          />
+
           <Text style={styles.label}>Registro (Matrícula)</Text>
           <TextInput value={registro} onChangeText={setRegistro} style={styles.input} />
 
