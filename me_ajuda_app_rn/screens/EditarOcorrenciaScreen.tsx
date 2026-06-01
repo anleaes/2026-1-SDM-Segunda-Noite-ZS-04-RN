@@ -43,8 +43,8 @@ const EditarOcorrenciaScreen = ({ route, navigation }: Props) => {
           complemento,
           descricao,
           status,
-          cidadao: parseInt(cidadaoId) || null,
-          servico: parseInt(servicoId) || null
+          cidadao: parseInt(cidadaoId),
+          servico: parseInt(servicoId)
         }),
       }
     );

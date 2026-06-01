@@ -38,8 +38,8 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       numero,
       complemento,
       descricao,
-      cidadao: cidadaoId,
-      servico: servicoId,
+      cidadao: parseInt(cidadaoId),
+      servico: parseInt(servicoId),
       status: 'ABE'
     };
 
@@ -69,7 +69,7 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       <Text style={styles.label}>Complemento</Text>
       <TextInput value={complemento} onChangeText={setComplemento} style={styles.input} />
 
-      <Text style={styles.label}>ID do Cidadão (Provisório)</Text>
+      <Text style={styles.label}>ID do Cidadão</Text>
       <TextInput value={cidadaoId} onChangeText={setCidadaoId} style={styles.input} keyboardType="numeric" />
 
       <Text style={styles.label}>ID do Serviço</Text>

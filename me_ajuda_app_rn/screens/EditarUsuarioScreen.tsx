@@ -26,6 +26,8 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
   const [funcao, setFuncao] = useState(usuario.funcao || 'TEC');
   const [ativo, setAtivo] = useState(usuario.ativo !== undefined ? usuario.ativo : true);
 
+  const [userId, setUserId] = useState(String(usuario.user));
+
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -42,12 +44,13 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
     setRegistro(usuario.registro || '');
     setFuncao(usuario.funcao || 'TEC');
     setAtivo(usuario.ativo !== undefined ? usuario.ativo : true);
+    setUserId(String(usuario.user));
   }, [usuario]);
 
   const handleSave = async () => {
     setSaving(true);
 
-    const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario };
+    const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario, user: parseInt(userId) };
 
     if (tipoUsuario === 'cidadao') {
       Object.assign(payload, { fone, endereco, cep, bairro });
@@ -80,6 +83,9 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
 
       <Text style={styles.label}>E-mail</Text>
       <TextInput value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
+
+      <Text style={styles.label}>ID do User</Text>
+      <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric"/>
 
       {tipoUsuario === 'cidadao' && (
         <>

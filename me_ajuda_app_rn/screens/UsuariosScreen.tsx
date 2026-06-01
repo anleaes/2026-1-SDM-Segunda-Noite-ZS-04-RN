@@ -20,6 +20,7 @@ export type Usuario = {
   registro?: string;
   funcao?: string;
   ativo?: boolean;
+  user: number;
 };
 
 const UsuariosScreen = ({ navigation }: Props) => {
