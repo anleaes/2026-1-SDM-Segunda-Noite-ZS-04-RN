@@ -14,6 +14,7 @@ import IntervencoesScreen, { Intervencao } from '../screens/IntervencoesScreen';
 import CriarIntervencaoScreen from '../screens/CriarIntervencaoScreen';
 import EditarIntervencaoScreen from '../screens/EditarIntervencaoScreen';
 import CriarServicoScreen from '../screens/CriarServicoScreen';
+import EditarServicoScreen from '../screens/EditarServicoScreen';
 
 
 export type DrawerParamList = {
@@ -105,16 +106,16 @@ const DrawerNavigator = () => {
           title: 'Serviços',
         }}
       /> 
-      {  <Drawer.Screen
+        <Drawer.Screen
         name="CriarServico"
         component={CriarServicoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Novo serviço' }}
       /> 
-     /*  <Drawer.Screen
+       <Drawer.Screen
         name="EditarServico"
         component={EditarServicoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar serviço' }}
-      /> */}
+      /> */
       <Drawer.Screen
         name="Equipamentos"
         component={EquipamentosScreen}
