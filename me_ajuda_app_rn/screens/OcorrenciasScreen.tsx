@@ -16,6 +16,8 @@ export type Ocorrencia = {
   status: 'ABE' | 'AND' | 'FEC';
   criado_em: string;
   complemento?: string;
+  cidadao: number;
+  servico: number;
 };
 
 const OcorrenciasScreen = ({ navigation }: Props) => {
