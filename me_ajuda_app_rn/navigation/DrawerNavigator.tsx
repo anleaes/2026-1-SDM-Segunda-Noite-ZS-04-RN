@@ -17,6 +17,7 @@ import CriarServicoScreen from '../screens/CriarServicoScreen';
 import EditarServicoScreen from '../screens/EditarServicoScreen';
 import SecretariasScreen, { Secretaria } from '../screens/SecretariasScreen';
 import UsuariosScreen, { Usuario } from '../screens/UsuariosScreen';
+import CriarUsuarioScreen from '../screens/CriarUsuarioScreen';
 
 export type DrawerParamList = {
   Home: undefined;
