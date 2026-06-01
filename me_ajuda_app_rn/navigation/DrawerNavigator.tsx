@@ -115,7 +115,7 @@ const DrawerNavigator = () => {
         name="EditarServico"
         component={EditarServicoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar serviço' }}
-      /> */
+      />
       <Drawer.Screen
         name="Equipamentos"
         component={EquipamentosScreen}
