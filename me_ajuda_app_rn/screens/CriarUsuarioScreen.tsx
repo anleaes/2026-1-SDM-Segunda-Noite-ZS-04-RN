@@ -21,6 +21,7 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
   const [registro, setRegistro] = useState('');
   const [funcao, setFuncao] = useState('TEC');
   const [ativo, setAtivo] = useState(true);
+  const [secretarias, setSecretarias] = useState('');
   const [userId, setUserId] = useState('');
 
   const [saving, setSaving] = useState(false);
@@ -31,6 +32,7 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
       setNome(''); setSobrenome(''); setCpf(''); setEmail('');
       setFone(''); setEndereco(''); setCep(''); setBairro('');
       setRegistro(''); setFuncao('TEC'); setAtivo(true);
+      setSecretarias('');
       setUserId('');
     }, [])
   );
@@ -40,13 +42,17 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
 
     const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario, user: parseInt(userId) };
 
+    let rotaApi = '';
+
     if (tipoUsuario === 'cidadao') {
       Object.assign(payload, { fone, endereco, cep, bairro });
+      rotaApi = 'cidadaos';
     } else {
-      Object.assign(payload, { registro, funcao, ativo });
+      Object.assign(payload, { registro, funcao, ativo, secretarias: secretarias.split(',').map(s => parseInt(s.trim())) });
+      rotaApi = 'funcionarios';
     }
 
-    await fetch('http://localhost:8000/usuarios/api/', {
+    await fetch(`http://localhost:8000/${rotaApi}/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -85,7 +91,7 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
       <TextInput value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
 
       <Text style={styles.label}>ID do User</Text>
-      <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric"/>
+      <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric" />
 
       {tipoUsuario === 'cidadao' && (
         <>
@@ -107,6 +113,15 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
       {tipoUsuario === 'funcionario' && (
         <>
           <Text style={styles.sectionTitle}>Dados do Funcionário</Text>
+
+          <Text style={styles.label}>Secretarias (IDs, separados por vírgula)</Text>
+          <TextInput
+            value={secretarias}
+            onChangeText={setSecretarias}
+            style={styles.input}
+            placeholder="Ex: 1, 2, 3"
+          />
+
           <Text style={styles.label}>Registro (Matrícula)</Text>
           <TextInput value={registro} onChangeText={setRegistro} style={styles.input} />
 

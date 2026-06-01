@@ -20,7 +20,9 @@ export type Usuario = {
   registro?: string;
   funcao?: string;
   ativo?: boolean;
+  secretarias?: number[];
   user: number;
+  tipo_usuario?: string;
 };
 
 const UsuariosScreen = ({ navigation }: Props) => {
@@ -49,7 +51,7 @@ const UsuariosScreen = ({ navigation }: Props) => {
   };
 
   const renderItem = ({ item }: { item: Usuario }) => {
-    const isFuncionario = !!item.registro;
+    const isFuncionario = item.tipo_usuario === 'funcionario';
 
     return (
       <View style={styles.card}>
@@ -62,12 +64,6 @@ const UsuariosScreen = ({ navigation }: Props) => {
 
         <Text style={styles.info}>✉️ {item.email}</Text>
         <Text style={styles.info}>📄 CPF: {item.cpf}</Text>
-
-        {isFuncionario ? (
-          <Text style={styles.subInfo}>Registro: {item.registro} - Função: {item.funcao}</Text>
-        ) : (
-          <Text style={styles.subInfo}>Telefone: {item.fone || 'Não informado'}</Text>
-        )}
 
         <View style={styles.row}>
           <TouchableOpacity
