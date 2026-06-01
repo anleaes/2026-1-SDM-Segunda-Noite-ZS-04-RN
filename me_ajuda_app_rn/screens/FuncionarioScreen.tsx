@@ -5,9 +5,9 @@ import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DrawerParamList } from '../navigation/DrawerNavigator';
 
-type Props = DrawerScreenProps<DrawerParamList, 'funcionarios'>;
+type Props = DrawerScreenProps<DrawerParamList, 'Funcionarios'>;
 
-export type funcionario = {
+export type Funcionario = {
   id: number;
   nome: string;
   sobrenome: string;
@@ -21,7 +21,7 @@ export type funcionario = {
 };
 
 const funcionariosScreen = ({ navigation }: Props) => {
-  const [funciofuncionarios, setfuncionarios] = useState<funcionario[]>([]);
+  const [funciofuncionarios, setfuncionarios] = useState<Funcionario[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchfuncionarios = async () => {
