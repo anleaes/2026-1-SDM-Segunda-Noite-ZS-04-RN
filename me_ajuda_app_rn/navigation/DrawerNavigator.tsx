@@ -8,7 +8,7 @@ import CriarOcorrenciaScreen from '../screens/CriarOcorrenciaScreen';
 import EditarOcorrenciaScreen from '../screens/EditarOcorrenciaScreen';
 import ServicosScreen, { Servico } from '../screens/ServicosScreen';
 import EquipamentosScreen, { Equipamento } from '../screens/EquipamentosScreen';
-import CriarEquipamentoScreen from '../screens/CriarEquipamento';
+import CriarEquipamentoScreen from '../screens/CriarEquipamentoScreen';
 
 
 export type DrawerParamList = {
