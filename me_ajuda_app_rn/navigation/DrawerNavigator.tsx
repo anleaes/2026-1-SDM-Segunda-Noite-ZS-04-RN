@@ -8,6 +8,7 @@ import CriarOcorrenciaScreen from '../screens/CriarOcorrenciaScreen';
 import EditarOcorrenciaScreen from '../screens/EditarOcorrenciaScreen';
 import ServicosScreen, { Servico } from '../screens/ServicosScreen';
 import EquipamentosScreen, { Equipamento } from '../screens/EquipamentosScreen';
+import CriarEquipamentoScreen from '../screens/CriarEquipamento';
 
 
 export type DrawerParamList = {
@@ -18,9 +19,9 @@ export type DrawerParamList = {
   Ocorrencias: undefined;
   CriarOcorrencia: undefined;
   EditarOcorrencia: { ocorrencia: Ocorrencia };
-   Servicos: undefined;
-   CriarServico: undefined;
-   EditarServico: { servico: Servico };
+  Servicos: undefined;
+  CriarServico: undefined;
+  EditarServico: { servico: Servico };
   Equipamentos: undefined;
   CriarEquipamento: undefined;
   EditarEquipamento: { equipamento: Equipamento };
@@ -114,12 +115,12 @@ const DrawerNavigator = () => {
         component={EquipamentosScreen}
         options={{ drawerIcon: ({ color, size }) => <Ionicons name="hardware-chip" size={size} color={color} />, title: 'Equipamentos' }}
       />
-      {/*<Drawer.Screen
+      <Drawer.Screen
         name="CriarEquipamento"
         component={CriarEquipamentoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Novo equipamento' }}
       />
-      <Drawer.Screen
+      {/*<Drawer.Screen
         name="EditarEquipamento"
         component={EditarEquipamentoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar equipamento' }}
