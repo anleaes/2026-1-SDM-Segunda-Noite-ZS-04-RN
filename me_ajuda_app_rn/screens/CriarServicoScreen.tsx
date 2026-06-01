@@ -25,7 +25,7 @@ const CriarServicoScreen = ({ navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
-    await fetch('http://127.0.0.1:8000/servicos/api/', {
+    await fetch('http://localhost:8000/servicos/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 

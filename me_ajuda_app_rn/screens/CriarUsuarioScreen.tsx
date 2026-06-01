@@ -35,9 +35,9 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
-    
+
     const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario };
-    
+
     if (tipoUsuario === 'cidadao') {
       Object.assign(payload, { fone, endereco, cep, bairro });
     } else {
@@ -49,8 +49,8 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    
-    navigation.navigate('Usuarios');  
+
+    navigation.navigate('Usuarios');
     setSaving(false);
   };
 
@@ -68,7 +68,7 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
           <Picker.Item label="Funcionário" value="funcionario" />
         </Picker>
       </View>
-      
+
       {/* CAMPOS COMUNS */}
       <Text style={styles.sectionTitle}>Dados Básicos</Text>
       <Text style={styles.label}>Nome</Text>
@@ -133,23 +133,23 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
         }
       </View>
       <Button title="Voltar" onPress={() => navigation.navigate('Usuarios')} color="#6c757d" />
-      
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 16, 
-    backgroundColor: '#fff' 
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff'
   },
-  title: { 
-    fontSize: 20, 
-    fontWeight: 'bold', 
-    marginBottom: 12, 
-    alignSelf: 'center' 
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    alignSelf: 'center'
   },
   sectionTitle: {
     fontSize: 16,
@@ -161,10 +161,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
     paddingBottom: 4,
   },
-  label: { 
-    fontWeight: '600', 
-    marginTop: 12, 
-    marginBottom: 4 
+  label: {
+    fontWeight: '600',
+    marginTop: 12,
+    marginBottom: 4
   },
   input: {
     borderWidth: 1,

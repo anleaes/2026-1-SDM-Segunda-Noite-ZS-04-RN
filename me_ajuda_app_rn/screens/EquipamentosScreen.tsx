@@ -22,7 +22,7 @@ const EquipamentosScreen = ({ navigation }: Props) => {
 
   const fetchEquipamentos = async () => {
     setLoading(true);
-    const response = await fetch('http://127.0.0.1:8000/equipamentos/api/');
+    const response = await fetch('http://localhost:8000/equipamentos/api/');
     const data = await response.json();
     setEquipamentos(data);
     setLoading(false);
@@ -35,7 +35,7 @@ const EquipamentosScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    const res = await fetch(`http://127.0.0.1:8000/equipamentos/api/${id}/`, {
+    const res = await fetch(`http://localhost:8000/equipamentos/api/${id}/`, {
       method: 'DELETE',
     });
     setEquipamentos(prev => prev.filter(e => e.id !== id));
