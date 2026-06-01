@@ -13,6 +13,7 @@ import EditarEquipamentoScreen from '../screens/EditarEquipamentoScreen';
 import IntervencoesScreen, { Intervencao } from '../screens/IntervencoesScreen';
 import CriarIntervencaoScreen from '../screens/CriarIntervencaoScreen';
 import EditarIntervencaoScreen from '../screens/EditarIntervencaoScreen';
+import CriarServicoScreen from '../screens/CriarServicoScreen';
 
 
 export type DrawerParamList = {
@@ -78,7 +79,7 @@ const DrawerNavigator = () => {
         component={EditarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar Ocorrência' }}
       />
-      {/* <Drawer.Screen
+    {/* <Drawer.Screen
         name="Usuarios"
         component={UsuariosScreen}
         options={{
@@ -95,7 +96,7 @@ const DrawerNavigator = () => {
         name="EditarUsuario"
         component={EditarUsuarioScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar usuário' }}
-      /> */
+      /> */}
       <Drawer.Screen
         name="Servicos"
         component={ServicosScreen}
@@ -103,13 +104,13 @@ const DrawerNavigator = () => {
           drawerIcon: ({ color, size }) => <Ionicons name="logo-facebook" size={size} color={color} />,
           title: 'Serviços',
         }}
-      />
-      /* <Drawer.Screen
+      /> 
+      {  <Drawer.Screen
         name="CriarServico"
         component={CriarServicoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Novo serviço' }}
-      />
-      <Drawer.Screen
+      /> 
+     /*  <Drawer.Screen
         name="EditarServico"
         component={EditarServicoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar serviço' }}
