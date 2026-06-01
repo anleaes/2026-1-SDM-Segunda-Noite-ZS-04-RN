@@ -12,21 +12,21 @@ export type Funcionario = {
   nome: string;
   sobrenome: string;
   email: string;
+  cpf: string;
   registro?: string;
   funcao?: string;
   ativo?: boolean;
   secretarias?: number[];
   user: number;
-  tipo_funcionario?: string;
 };
 
-const funcionariosScreen = ({ navigation }: Props) => {
+const FuncionariosScreen = ({ navigation }: Props) => {
   const [funciofuncionarios, setfuncionarios] = useState<Funcionario[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchfuncionarios = async () => {
     setLoading(true);
-    const response = await fetch('http://localhost:8000/funcionarios/api/');
+    const response = await fetch('http://localhost:8000/funcionarios/');
     const data = await response.json();
     setfuncionarios(data);
     setLoading(false);
@@ -39,22 +39,18 @@ const funcionariosScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://localhost:8000/funcionarios/api/${id}/`, {
+    await fetch(`http://localhost:8000/funcionarios/${id}/`, {
       method: 'DELETE',
     });
     setfuncionarios(prev => prev.filter(u => u.id !== id));
   };
 
-  const renderItem = ({ item }: { item: funcionario }) => {
-    const isFuncionario = item.tipo_funcionario === 'funcionario';
+  const renderItem = ({ item }: { item: Funcionario }) => {
 
     return (
       <View style={styles.card}>
         <View style={styles.headerCard}>
           <Text style={styles.name}>{item.nome} {item.sobrenome}</Text>
-          <View style={[styles.badge, { backgroundColor: isFuncionario ? '#4B7BE5' : '#28a745' }]}>
-            <Text style={styles.badgeText}>{isFuncionario ? 'Funcionário' : 'Cidadão'}</Text>
-          </View>
         </View>
 
         <Text style={styles.info}>✉️ {item.email}</Text>
@@ -63,7 +59,7 @@ const funcionariosScreen = ({ navigation }: Props) => {
         <View style={styles.row}>
           <TouchableOpacity
             style={styles.editButton}
-            onPress={() => navigation.navigate('Editarfuncionario', { funcionario: item })}
+            onPress={() => navigation.navigate('EditarFuncionario', { funcionario: item })}
           >
             <Text style={styles.editText}>Editar</Text>
           </TouchableOpacity>
@@ -81,7 +77,7 @@ const funcionariosScreen = ({ navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Usuários</Text>
+      <Text style={styles.title}>Funcionários</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#4B7BE5" />
       ) : (
@@ -94,7 +90,7 @@ const funcionariosScreen = ({ navigation }: Props) => {
       )}
       <TouchableOpacity
         style={styles.fab}
-        onPress={() => navigation.navigate('Criarfuncionario')}
+        onPress={() => navigation.navigate('CriarFuncionario')}
       >
         <Ionicons name="add" size={28} color="#fff" />
       </TouchableOpacity>
@@ -193,4 +189,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FuncionarioScreen;
+export default FuncionariosScreen;

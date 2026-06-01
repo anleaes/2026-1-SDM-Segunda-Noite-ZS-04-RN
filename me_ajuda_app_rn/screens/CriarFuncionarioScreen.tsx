@@ -9,15 +9,10 @@ type Props = DrawerScreenProps<DrawerParamList, 'CriarFuncionario'>;
 
 const CriarFuncionarioScreen = ({ navigation }: Props) => {
 
-  const [tipoUsuario, setTipoUsuario] = useState<'cidadao' | 'funcionario'>('cidadao');
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
-  const [fone, setFone] = useState('');
-  const [endereco, setEndereco] = useState('');
-  const [cep, setCep] = useState('');
-  const [bairro, setBairro] = useState('');
   const [registro, setRegistro] = useState('');
   const [funcao, setFuncao] = useState('TEC');
   const [ativo, setAtivo] = useState(true);
@@ -28,9 +23,7 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
 
   useFocusEffect(
     useCallback(() => {
-      setTipoUsuario('cidadao');
       setNome(''); setSobrenome(''); setCpf(''); setEmail('');
-      setFone(''); setEndereco(''); setCep(''); setBairro('');
       setRegistro(''); setFuncao('TEC'); setAtivo(true);
       setSecretarias('');
       setUserId('');
@@ -40,15 +33,12 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
-    const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario, user: parseInt(userId) };
+    const payload: any = { nome, sobrenome, cpf, email, user: parseInt(userId) };
 
     let rotaApi = '';
 
-
-     else {
-      Object.assign(payload, { registro, funcao, ativo, secretarias: secretarias.split(',').map(s => parseInt(s.trim())) });
-      rotaApi = 'funcionarios';
-    }
+    Object.assign(payload, { registro, funcao, ativo, secretarias: secretarias.split(',').map(s => parseInt(s.trim())) });
+    rotaApi = 'funcionarios';
 
     await fetch(`http://localhost:8000/${rotaApi}/`, {
       method: 'POST',
@@ -56,24 +46,13 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
       body: JSON.stringify(payload),
     });
 
-    navigation.navigate('Usuarios');
+    navigation.navigate('Funcionarios');
     setSaving(false);
   };
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Novo Usuário</Text>
-
-      <Text style={styles.label}>Tipo de Perfil</Text>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={tipofuncionario}
-          onValueChange={(itemValue) => setTipofuncionario(itemValue)}
-        >
-          <Picker.Item label="Cidadão" value="cidadao" />
-          <Picker.Item label="Funcionário" value="funcionario" />
-        </Picker>
-      </View>
+      <Text style={styles.title}>Novo Funcionário</Text>
 
       <Text style={styles.sectionTitle}>Dados Básicos</Text>
       <Text style={styles.label}>Nome</Text>
@@ -91,41 +70,37 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
       <Text style={styles.label}>ID do User</Text>
       <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric" />
 
-    
-      {tipoUsuario === 'funcionario' && (
-        <>
-          <Text style={styles.sectionTitle}>Dados do Funcionário</Text>
 
-          <Text style={styles.label}>Secretarias (IDs, separados por vírgula)</Text>
-          <TextInput
-            value={secretarias}
-            onChangeText={setSecretarias}
-            style={styles.input}
-            placeholder="Ex: 1, 2, 3"
-          />
+      <Text style={styles.sectionTitle}>Dados do Funcionário</Text>
 
-          <Text style={styles.label}>Registro (Matrícula)</Text>
-          <TextInput value={registro} onChangeText={setRegistro} style={styles.input} />
+      <Text style={styles.label}>Secretarias (IDs, separados por vírgula)</Text>
+      <TextInput
+        value={secretarias}
+        onChangeText={setSecretarias}
+        style={styles.input}
+        placeholder="Ex: 1, 2, 3"
+      />
 
-          <Text style={styles.label}>Função</Text>
-          <View style={styles.pickerContainer}>
-            <Picker selectedValue={funcao} onValueChange={setFuncao}>
-              <Picker.Item label="Técnico (TEC)" value="TEC" />
-              <Picker.Item label="Gestor (GES)" value="GES" />
-              <Picker.Item label="Analista (ANA)" value="ANA" />
-            </Picker>
-          </View>
+      <Text style={styles.label}>Registro (Matrícula)</Text>
+      <TextInput value={registro} onChangeText={setRegistro} style={styles.input} />
 
-          <View style={styles.switchContainer}>
-            <Text style={styles.labelSwitch}>Funcionário Ativo?</Text>
-            <Switch
-              value={ativo}
-              onValueChange={setAtivo}
-              trackColor={{ false: "#ccc", true: "#4B7BE5" }}
-            />
-          </View>
-        </>
-      )}
+      <Text style={styles.label}>Função</Text>
+      <View style={styles.pickerContainer}>
+        <Picker selectedValue={funcao} onValueChange={setFuncao}>
+          <Picker.Item label="Técnico (TEC)" value="TEC" />
+          <Picker.Item label="Gestor (GES)" value="GES" />
+          <Picker.Item label="Analista (ANA)" value="ANA" />
+        </Picker>
+      </View>
+
+      <View style={styles.switchContainer}>
+        <Text style={styles.labelSwitch}>Funcionário Ativo?</Text>
+        <Switch
+          value={ativo}
+          onValueChange={setAtivo}
+          trackColor={{ false: "#ccc", true: "#4B7BE5" }}
+        />
+      </View>
 
       <View style={styles.buttonSpacer}>
         {saving
@@ -133,7 +108,7 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
           : <Button title="Salvar" onPress={handleSave} color="#4B7BE5" />
         }
       </View>
-      <Button title="Voltar" onPress={() => navigation.navigate('Usuarios')} color="#6c757d" />
+      <Button title="Voltar" onPress={() => navigation.navigate('Funcionarios')} color="#6c757d" />
 
       <View style={{ height: 40 }} />
     </ScrollView>
