@@ -52,10 +52,10 @@ const DrawerNavigator = () => {
       initialRouteName="Home"
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
-        drawerActiveTintColor: '#4B7BE5',
+        drawerActiveTintColor: '#1a325a',
         drawerLabelStyle: { marginLeft: 0, fontSize: 16 },
         drawerStyle: { backgroundColor: '#fff', width: 250 },
-        headerStyle: { backgroundColor: '#4B7BE5' },
+        headerStyle: { backgroundColor: '#1a325a' },
         headerTintColor: '#fff',
       }}
     >
@@ -71,11 +71,11 @@ const DrawerNavigator = () => {
         name="Ocorrencias"
         component={OcorrenciasScreen}
         options={{
-          drawerIcon: ({ color, size }) => <Ionicons name="settings-outline" size={size} color={color} />,
+          drawerIcon: ({ color, size }) => <Ionicons name="alert-outline" size={size} color={color} />,
           title: 'Ocorrências',
         }}
       />
-       <Drawer.Screen
+      <Drawer.Screen
         name="CriarOcorrencia"
         component={CriarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova ocorrência' }}
@@ -85,11 +85,11 @@ const DrawerNavigator = () => {
         component={EditarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar Ocorrência' }}
       />
-    {/* <Drawer.Screen
+      <Drawer.Screen
         name="Usuarios"
         component={UsuariosScreen}
         options={{
-          drawerIcon: ({ color, size }) => <Ionicons name="cart" size={size} color={color} />,
+          drawerIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
           title: 'Usuários',
         }}
       />
@@ -102,21 +102,21 @@ const DrawerNavigator = () => {
         name="EditarUsuario"
         component={EditarUsuarioScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar usuário' }}
-      /> */}
+      />
       <Drawer.Screen
         name="Servicos"
         component={ServicosScreen}
         options={{
-          drawerIcon: ({ color, size }) => <Ionicons name="logo-facebook" size={size} color={color} />,
+          drawerIcon: ({ color, size }) => <Ionicons name="construct-sharp" size={size} color={color} />,
           title: 'Serviços',
         }}
-      /> 
-        <Drawer.Screen
+      />
+      <Drawer.Screen
         name="CriarServico"
         component={CriarServicoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Novo serviço' }}
-      /> 
-       <Drawer.Screen
+      />
+      <Drawer.Screen
         name="EditarServico"
         component={EditarServicoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar serviço' }}
@@ -124,7 +124,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="Equipamentos"
         component={EquipamentosScreen}
-        options={{ drawerIcon: ({ color, size }) => <Ionicons name="hardware-chip" size={size} color={color} />, title: 'Equipamentos' }}
+        options={{ drawerIcon: ({ color, size }) => <Ionicons name="hammer" size={size} color={color} />, title: 'Equipamentos' }}
       />
       <Drawer.Screen
         name="CriarEquipamento"
@@ -136,7 +136,7 @@ const DrawerNavigator = () => {
         component={EditarEquipamentoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar equipamento' }}
       />
-      {/*<Drawer.Screen
+      <Drawer.Screen
         name="Secretarias"
         component={SecretariasScreen}
         options={{ drawerIcon: ({ color, size }) => <Ionicons name="business-outline" size={size} color={color} />, title: 'Secretarias' }}
@@ -147,10 +147,10 @@ const DrawerNavigator = () => {
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova secretaria' }}
       />
       <Drawer.Screen
-        name="EditSecretaria"
+        name="EditarSecretaria"
         component={EditarSecretariaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar secretaria' }}
-      />*/}
+      />
       <Drawer.Screen
         name="Intervencoes"
         component={IntervencoesScreen}
@@ -165,7 +165,7 @@ const DrawerNavigator = () => {
         name="EditarIntervencao"
         component={EditarIntervencaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar intervenção' }}
-      /> 
+      />
     </Drawer.Navigator>
   );
 };

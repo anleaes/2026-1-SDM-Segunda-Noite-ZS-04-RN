@@ -22,7 +22,7 @@ const SecretariasScreen = ({ navigation }: Props) => {
 
   const fetchSecretarias = async () => {
     setLoading(true);
-    const response = await fetch('http://localhost:8000/secretarias/api');
+    const response = await fetch('http://localhost:8000/secretarias/api/');
     const data = await response.json();
     setSecretarias(data);
     setLoading(false);
@@ -45,9 +45,9 @@ const SecretariasScreen = ({ navigation }: Props) => {
     <View style={styles.card}>
       <Text style={styles.name}>{item.nome} ({item.sigla})</Text>
       <Text style={styles.description}>{item.descricao}</Text>
-      
+
       {item.site ? <Text style={styles.site}>Site: {item.site}</Text> : null}
-      
+
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.editButton}
@@ -55,7 +55,7 @@ const SecretariasScreen = ({ navigation }: Props) => {
         >
           <Text style={styles.editText}>Editar</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => handleDelete(item.id)}
@@ -66,7 +66,7 @@ const SecretariasScreen = ({ navigation }: Props) => {
     </View>
   );
 
-  return ( 
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>Secretarias</Text>
       {loading ? (
@@ -83,7 +83,7 @@ const SecretariasScreen = ({ navigation }: Props) => {
         style={styles.fab}
         onPress={() => navigation.navigate('CriarSecretaria')}
       >
-        <Ionicons name="add" size={28} color="#fff"  />
+        <Ionicons name="add" size={28} color="#fff" />
       </TouchableOpacity>
     </View>
   );
@@ -136,9 +136,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginRight: 8,
   },
-  editText: { 
-    color: '#fff', 
-    fontWeight: '500' 
+  editText: {
+    color: '#fff',
+    fontWeight: '500'
   },
   fab: {
     position: 'absolute',
@@ -155,10 +155,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginRight: 8,
   },
-  row: { 
-    flexDirection: 'row', 
-    marginTop: 12, 
-    alignSelf: 'flex-end' 
+  row: {
+    flexDirection: 'row',
+    marginTop: 12,
+    alignSelf: 'flex-end'
   },
 });
 

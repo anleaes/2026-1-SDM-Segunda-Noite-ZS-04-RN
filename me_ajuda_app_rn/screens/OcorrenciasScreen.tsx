@@ -16,6 +16,8 @@ export type Ocorrencia = {
   status: 'ABE' | 'AND' | 'FEC';
   criado_em: string;
   complemento?: string;
+  cidadao: number;
+  servico: number;
 };
 
 const OcorrenciasScreen = ({ navigation }: Props) => {
@@ -24,7 +26,7 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
 
   const fetchOcorrencias = async () => {
     setLoading(true);
-    const response = await fetch('http://127.0.0.1:8000/ocorrencias/api/');
+    const response = await fetch('http://localhost:8000/ocorrencias/api/');
     const data = await response.json();
     setOcorrencias(data);
     setLoading(false);
@@ -37,7 +39,7 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://127.0.0.1:8000/ocorrencias/api/${id}/`, {
+    await fetch(`http://localhost:8000/ocorrencias/api/${id}/`, {
       method: 'DELETE',
     });
     setOcorrencias(prev => prev.filter(o => o.id !== id));

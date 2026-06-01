@@ -21,7 +21,7 @@ const ServicosScreen = ({ navigation }: Props) => {
 
   const fetchServicos = async () => {
     setLoading(true);
-    const response = await fetch('http://127.0.0.1:8000/servicos/api/');
+    const response = await fetch('http://localhost:8000/servicos/api/');
     const data = await response.json();
     setServicos(data);
     setLoading(false);
@@ -34,7 +34,7 @@ const ServicosScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://127.0.0.1:8000/servicos/api/${id}/`, {
+    await fetch(`http://localhost:8000/servicos/api/${id}/`, {
       method: 'DELETE',
     });
     setServicos(prev => prev.filter(o => o.id !== id));

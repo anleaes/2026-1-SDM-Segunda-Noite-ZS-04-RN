@@ -21,6 +21,7 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
   const [registro, setRegistro] = useState('');
   const [funcao, setFuncao] = useState('TEC');
   const [ativo, setAtivo] = useState(true);
+  const [userId, setUserId] = useState('');
 
   const [saving, setSaving] = useState(false);
 
@@ -30,14 +31,15 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
       setNome(''); setSobrenome(''); setCpf(''); setEmail('');
       setFone(''); setEndereco(''); setCep(''); setBairro('');
       setRegistro(''); setFuncao('TEC'); setAtivo(true);
+      setUserId('');
     }, [])
   );
 
   const handleSave = async () => {
     setSaving(true);
-    
-    const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario };
-    
+
+    const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario, user: parseInt(userId) };
+
     if (tipoUsuario === 'cidadao') {
       Object.assign(payload, { fone, endereco, cep, bairro });
     } else {
@@ -49,8 +51,8 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    
-    navigation.navigate('Usuarios');  
+
+    navigation.navigate('Usuarios');
     setSaving(false);
   };
 
@@ -68,8 +70,7 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
           <Picker.Item label="Funcionário" value="funcionario" />
         </Picker>
       </View>
-      
-      {/* CAMPOS COMUNS */}
+
       <Text style={styles.sectionTitle}>Dados Básicos</Text>
       <Text style={styles.label}>Nome</Text>
       <TextInput value={nome} onChangeText={setNome} style={styles.input} />
@@ -82,6 +83,9 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
 
       <Text style={styles.label}>E-mail</Text>
       <TextInput value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
+
+      <Text style={styles.label}>ID do User</Text>
+      <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric"/>
 
       {tipoUsuario === 'cidadao' && (
         <>
@@ -133,23 +137,23 @@ const CriarUsuarioScreen = ({ navigation }: Props) => {
         }
       </View>
       <Button title="Voltar" onPress={() => navigation.navigate('Usuarios')} color="#6c757d" />
-      
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 16, 
-    backgroundColor: '#fff' 
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff'
   },
-  title: { 
-    fontSize: 20, 
-    fontWeight: 'bold', 
-    marginBottom: 12, 
-    alignSelf: 'center' 
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    alignSelf: 'center'
   },
   sectionTitle: {
     fontSize: 16,
@@ -161,10 +165,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
     paddingBottom: 4,
   },
-  label: { 
-    fontWeight: '600', 
-    marginTop: 12, 
-    marginBottom: 4 
+  label: {
+    fontWeight: '600',
+    marginTop: 12,
+    marginBottom: 4
   },
   input: {
     borderWidth: 1,

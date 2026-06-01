@@ -1,7 +1,7 @@
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
-import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { DrawerParamList } from '../navigation/DrawerNavigator';
 
 type Props = DrawerScreenProps<DrawerParamList, 'CriarOcorrencia'>;
@@ -13,6 +13,7 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
   const [numero, setNumero] = useState('');
   const [complemento, setComplemento] = useState('');
   const [descricao, setDescricao] = useState('');
+  const [cidadaoId, setCidadaoId] = useState('');
   const [servicoId, setServicoId] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -23,35 +24,37 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       setNumero('');
       setComplemento('');
       setDescricao('');
+      setCidadaoId('');
       setServicoId('');
     }, [])
   );
 
   const handleSave = async () => {
     setSaving(true);
-    
+
     const payload = {
       titulo,
       endereco,
       numero,
       complemento,
       descricao,
-      servico: servicoId, 
+      cidadao: parseInt(cidadaoId),
+      servico: parseInt(servicoId),
       status: 'ABE'
     };
 
-    const res = await fetch('http://127.0.0.1:8000/ocorrencias/api', {
+    const res = await fetch('http://localhost:8000/ocorrencias/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    
-    navigation.navigate('Ocorrencias');  
+
+    navigation.navigate('Ocorrencias');
     setSaving(false);
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Nova Ocorrência</Text>
 
       <Text style={styles.label}>Título</Text>
@@ -65,6 +68,9 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
 
       <Text style={styles.label}>Complemento</Text>
       <TextInput value={complemento} onChangeText={setComplemento} style={styles.input} />
+
+      <Text style={styles.label}>ID do Cidadão</Text>
+      <TextInput value={cidadaoId} onChangeText={setCidadaoId} style={styles.input} keyboardType="numeric" />
 
       <Text style={styles.label}>ID do Serviço</Text>
       <TextInput value={servicoId} onChangeText={setServicoId} style={styles.input} keyboardType="numeric" />
@@ -83,32 +89,32 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
           : <Button title="Salvar" onPress={handleSave} color="#4B7BE5" />
         }
       </View>
-      
+
       <View style={styles.buttonContainer}>
         <Button title="Voltar" onPress={() => navigation.navigate('Ocorrencias')} color="#6c757d" />
       </View>
-      
+
       <View style={{ height: 40 }} />
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 16, 
-    backgroundColor: '#fff' 
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff'
   },
-  title: { 
-    fontSize: 20, 
-    fontWeight: 'bold', 
-    marginBottom: 12, 
-    alignSelf: 'center' 
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    alignSelf: 'center'
   },
-  label: { 
-    fontWeight: '600', 
-    marginTop: 12, 
-    marginBottom: 4 
+  label: {
+    fontWeight: '600',
+    marginTop: 12,
+    marginBottom: 4
   },
   input: {
     borderWidth: 1,

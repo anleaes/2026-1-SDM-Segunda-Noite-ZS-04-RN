@@ -10,7 +10,7 @@ const CustomDrawerContent = (props: any) => {
           source={require('@/assets/images/logo.png')}
           style={styles.avatar}
         />
-        <Text style={styles.name}>Olá, Usuário!</Text>
+        <Text style={styles.name}>MeAjuda</Text>
       </View>
       <View style={{ flex: 1, paddingTop: 10 }}>
         <DrawerItemList {...props} />

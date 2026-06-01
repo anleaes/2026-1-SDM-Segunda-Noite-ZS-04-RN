@@ -15,8 +15,12 @@ export type Usuario = {
   email: string;
   fone?: string;
   endereco?: string;
+  cep?: string;
+  bairro?: string;
   registro?: string;
   funcao?: string;
+  ativo?: boolean;
+  user: number;
 };
 
 const UsuariosScreen = ({ navigation }: Props) => {
@@ -45,7 +49,7 @@ const UsuariosScreen = ({ navigation }: Props) => {
   };
 
   const renderItem = ({ item }: { item: Usuario }) => {
-    const isFuncionario = !!item.registro; 
+    const isFuncionario = !!item.registro;
 
     return (
       <View style={styles.card}>
@@ -55,16 +59,16 @@ const UsuariosScreen = ({ navigation }: Props) => {
             <Text style={styles.badgeText}>{isFuncionario ? 'Funcionário' : 'Cidadão'}</Text>
           </View>
         </View>
-        
+
         <Text style={styles.info}>✉️ {item.email}</Text>
         <Text style={styles.info}>📄 CPF: {item.cpf}</Text>
-        
+
         {isFuncionario ? (
           <Text style={styles.subInfo}>Registro: {item.registro} - Função: {item.funcao}</Text>
         ) : (
           <Text style={styles.subInfo}>Telefone: {item.fone || 'Não informado'}</Text>
         )}
-        
+
         <View style={styles.row}>
           <TouchableOpacity
             style={styles.editButton}
@@ -72,7 +76,7 @@ const UsuariosScreen = ({ navigation }: Props) => {
           >
             <Text style={styles.editText}>Editar</Text>
           </TouchableOpacity>
-          
+
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={() => handleDelete(item.id)}
@@ -84,7 +88,7 @@ const UsuariosScreen = ({ navigation }: Props) => {
     );
   };
 
-  return ( 
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>Usuários</Text>
       {loading ? (
@@ -172,9 +176,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginRight: 8,
   },
-  editText: { 
-    color: '#fff', 
-    fontWeight: '500' 
+  editText: {
+    color: '#fff',
+    fontWeight: '500'
   },
   fab: {
     position: 'absolute',
@@ -191,10 +195,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginRight: 8,
   },
-  row: { 
-    flexDirection: 'row', 
-    marginTop: 12, 
-    justifyContent: 'flex-end' 
+  row: {
+    flexDirection: 'row',
+    marginTop: 12,
+    justifyContent: 'flex-end'
   },
 });
 

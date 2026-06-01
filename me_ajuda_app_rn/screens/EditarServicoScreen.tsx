@@ -24,7 +24,7 @@ const EditarServicoScreen = ({ route, navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
     const res = await fetch(
-      `http://127.0.0.1:8000/servicos/api/${servico.id}/`,
+      `http://localhost:8000/servicos/api/${servico.id}/`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

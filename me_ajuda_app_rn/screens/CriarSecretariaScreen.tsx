@@ -30,14 +30,14 @@ const CriarSecretariaScreen = ({ navigation }: Props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome, sigla, descricao, site }),
     });
-    navigation.navigate('Secretarias');  
+    navigation.navigate('Secretarias');
     setSaving(false);
   };
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Nova Secretaria</Text>
-      
+
       <Text style={styles.label}>Nome</Text>
       <TextInput
         value={nome}
@@ -77,28 +77,28 @@ const CriarSecretariaScreen = ({ navigation }: Props) => {
         }
       </View>
       <Button title="Voltar" onPress={() => navigation.navigate('Secretarias')} color="#6c757d" />
-      
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 16, 
-    backgroundColor: '#fff' 
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff'
   },
-  title: { 
-    fontSize: 20, 
-    fontWeight: 'bold', 
-    marginBottom: 12, 
-    alignSelf: 'center' 
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    alignSelf: 'center'
   },
-  label: { 
-    fontWeight: '600', 
-    marginTop: 12, 
-    marginBottom: 4 
+  label: {
+    fontWeight: '600',
+    marginTop: 12,
+    marginBottom: 4
   },
   input: {
     borderWidth: 1,

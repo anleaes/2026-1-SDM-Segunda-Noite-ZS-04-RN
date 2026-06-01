@@ -26,6 +26,8 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
   const [funcao, setFuncao] = useState(usuario.funcao || 'TEC');
   const [ativo, setAtivo] = useState(usuario.ativo !== undefined ? usuario.ativo : true);
 
+  const [userId, setUserId] = useState(String(usuario.user));
+
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -42,13 +44,14 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
     setRegistro(usuario.registro || '');
     setFuncao(usuario.funcao || 'TEC');
     setAtivo(usuario.ativo !== undefined ? usuario.ativo : true);
+    setUserId(String(usuario.user));
   }, [usuario]);
 
   const handleSave = async () => {
     setSaving(true);
-    
-    const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario };
-    
+
+    const payload: any = { nome, sobrenome, cpf, email, tipo: tipoUsuario, user: parseInt(userId) };
+
     if (tipoUsuario === 'cidadao') {
       Object.assign(payload, { fone, endereco, cep, bairro });
     } else {
@@ -60,15 +63,15 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    
-    navigation.navigate('Usuarios');        
-    setSaving(false);  
+
+    navigation.navigate('Usuarios');
+    setSaving(false);
   };
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.sectionTitle}>Dados Básicos</Text>
-      
+
       <Text style={styles.label}>Nome</Text>
       <TextInput value={nome} onChangeText={setNome} style={styles.input} />
 
@@ -80,6 +83,9 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
 
       <Text style={styles.label}>E-mail</Text>
       <TextInput value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
+
+      <Text style={styles.label}>ID do User</Text>
+      <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric"/>
 
       {tipoUsuario === 'cidadao' && (
         <>
@@ -132,17 +138,17 @@ const EditarUsuarioScreen = ({ route, navigation }: Props) => {
         )}
       </View>
       <Button title="Voltar" onPress={() => navigation.navigate('Usuarios')} color="#6c757d" />
-      
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 16, 
-    backgroundColor: '#fff' 
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff'
   },
   sectionTitle: {
     fontSize: 16,
@@ -154,10 +160,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
     paddingBottom: 4,
   },
-  label: { 
-    fontWeight: 'bold', 
-    marginTop: 12, 
-    marginBottom: 4 
+  label: {
+    fontWeight: 'bold',
+    marginTop: 12,
+    marginBottom: 4
   },
   input: {
     borderWidth: 1,
