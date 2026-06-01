@@ -12,6 +12,7 @@ import CriarEquipamentoScreen from '../screens/CriarEquipamentoScreen';
 import EditarEquipamentoScreen from '../screens/EditarEquipamentoScreen';
 import IntervencoesScreen, { Intervencao } from '../screens/IntervencoesScreen';
 import CriarIntervencaoScreen from '../screens/CriarIntervencaoScreen';
+import EditarIntervencaoScreen from '../screens/EditarIntervencaoScreen';
 
 
 export type DrawerParamList = {
@@ -153,11 +154,11 @@ const DrawerNavigator = () => {
         component={CriarIntervencaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova intervenção' }}
       />
-      {/*<Drawer.Screen
-        name="EditIntervencao"
+      <Drawer.Screen
+        name="EditarIntervencao"
         component={EditarIntervencaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar intervenção' }}
-      />  */}
+      /> 
     </Drawer.Navigator>
   );
 };
