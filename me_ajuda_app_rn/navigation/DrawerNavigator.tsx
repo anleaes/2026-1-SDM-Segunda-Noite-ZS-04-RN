@@ -20,6 +20,7 @@ import UsuariosScreen, { Usuario } from '../screens/UsuariosScreen';
 import CriarUsuarioScreen from '../screens/CriarUsuarioScreen';
 import CriarSecretariaScreen from '../screens/CriarSecretariaScreen';
 import EditarSecretariaScreen from '../screens/EditarSecretariaScreen';
+import EditarUsuarioScreen from '../screens/EditarUsuarioScreen';
 
 export type DrawerParamList = {
   Home: undefined;
