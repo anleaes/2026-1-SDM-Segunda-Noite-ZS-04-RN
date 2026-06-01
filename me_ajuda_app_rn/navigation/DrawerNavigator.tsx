@@ -22,6 +22,7 @@ import CriarSecretariaScreen from '../screens/CriarSecretariaScreen';
 import EditarSecretariaScreen from '../screens/EditarSecretariaScreen';
 import EditarUsuarioScreen from '../screens/EditarUsuarioScreen';
 import CidadaosScreen, { Cidadao } from '../screens/CidadaosScreen';
+import CriarCidadaoScreen from '../screens/CriarCidadaoScreen';
 
 export type DrawerParamList = {
   Home: undefined;
@@ -181,12 +182,12 @@ const DrawerNavigator = () => {
           title: 'Cidadãos',
         }}
       />
-      {/* <Drawer.Screen
+      <Drawer.Screen
         name="CriarCidadao"
         component={CriarCidadaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Novo cidadão' }}
       />
-      <Drawer.Screen
+      {/*<Drawer.Screen
         name="EditarCidadao"
         component={EditarCidadaoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar cidadão' }}
