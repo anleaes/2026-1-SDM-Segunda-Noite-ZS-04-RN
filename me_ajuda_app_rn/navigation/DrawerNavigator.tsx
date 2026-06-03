@@ -16,11 +16,8 @@ import EditarIntervencaoScreen from '../screens/EditarIntervencaoScreen';
 import CriarServicoScreen from '../screens/CriarServicoScreen';
 import EditarServicoScreen from '../screens/EditarServicoScreen';
 import SecretariasScreen, { Secretaria } from '../screens/SecretariasScreen';
-import UsuariosScreen, { Usuario } from '../screens/UsuariosScreen';
-import CriarUsuarioScreen from '../screens/CriarUsuarioScreen';
 import CriarSecretariaScreen from '../screens/CriarSecretariaScreen';
 import EditarSecretariaScreen from '../screens/EditarSecretariaScreen';
-import EditarUsuarioScreen from '../screens/EditarUsuarioScreen';
 import CidadaosScreen, { Cidadao } from '../screens/CidadaosScreen';
 import CriarCidadaoScreen from '../screens/CriarCidadaoScreen';
 import EditarCidadaoScreen from '../screens/EditarCidadaoScreen';
@@ -30,9 +27,6 @@ import EditarFuncionarioScreen from '../screens/EditarFuncionarioScreen';
 
 export type DrawerParamList = {
   Home: undefined;
-  Usuarios: undefined;
-  CriarUsuario: undefined;
-  EditarUsuario: { usuario: Usuario };
   Ocorrencias: undefined;
   CriarOcorrencia: undefined;
   EditarOcorrencia: { ocorrencia: Ocorrencia };
@@ -96,24 +90,6 @@ const DrawerNavigator = () => {
         name="EditarOcorrencia"
         component={EditarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar Ocorrência' }}
-      />
-      <Drawer.Screen
-        name="Usuarios"
-        component={UsuariosScreen}
-        options={{
-          drawerIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
-          title: 'Usuários',
-        }}
-      />
-      <Drawer.Screen
-        name="CriarUsuario"
-        component={CriarUsuarioScreen}
-        options={{ drawerItemStyle: { display: 'none' }, title: 'Novo usuário' }}
-      />
-      <Drawer.Screen
-        name="EditarUsuario"
-        component={EditarUsuarioScreen}
-        options={{ drawerItemStyle: { display: 'none' }, title: 'Editar usuário' }}
       />
       <Drawer.Screen
         name="Servicos"
