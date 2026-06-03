@@ -34,12 +34,9 @@ const CriarCidadaoScreen = ({ navigation }: Props) => {
 
     const payload: any = { nome, sobrenome, cpf, email, user: parseInt(userId) };
 
-    let rotaApi = '';
-
     Object.assign(payload, { fone, endereco, cep, bairro });
-    rotaApi = 'cidadaos';
 
-    await fetch(`http://localhost:8000/${rotaApi}/`, {
+    await fetch('http://localhost:8000/cidadaos/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),

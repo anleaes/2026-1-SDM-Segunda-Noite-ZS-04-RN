@@ -22,7 +22,7 @@ const CustomDrawerContent = (props: any) => {
 const styles = StyleSheet.create({
   header: {
     padding: 20,
-    backgroundColor: '#1a325a',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
   },
   avatar: {
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   name: {
-    color: '#fff',
+    color: '#000000',
     fontSize: 18,
     fontWeight: '600',
   },

@@ -41,13 +41,9 @@ const EditarFuncionarioScreen = ({ route, navigation }: Props) => {
 
     const payload: any = { nome, sobrenome, cpf, email, user: parseInt(userId) };
 
-    let rotaApi = '';
-
-
     Object.assign(payload, { registro, funcao, ativo, secretarias: secretarias.split(',').map(s => parseInt(s.trim())) });
-    rotaApi = 'funcionarios';
 
-    await fetch(`http://localhost:8000/${rotaApi}/${funcionario.id}/`, {
+    await fetch(`http://localhost:8000/funcionarios/api/${funcionario.id}/`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
