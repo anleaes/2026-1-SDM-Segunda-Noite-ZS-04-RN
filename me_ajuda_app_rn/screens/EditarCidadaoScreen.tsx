@@ -40,12 +40,9 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
 
     const payload: any = { nome, sobrenome, cpf, email, user: parseInt(userId) };
 
-    let rotaApi = '';
-
     Object.assign(payload, { fone, endereco, cep, bairro });
-    rotaApi = 'cidadaos';
 
-    await fetch(`http://localhost:8000/${rotaApi}/${cidadao.id}/`, {
+    await fetch(`http://localhost:8000/cidadaos/api/${cidadao.id}/`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),

@@ -21,7 +21,7 @@ import EditarSecretariaScreen from '../screens/EditarSecretariaScreen';
 import CidadaosScreen, { Cidadao } from '../screens/CidadaosScreen';
 import CriarCidadaoScreen from '../screens/CriarCidadaoScreen';
 import EditarCidadaoScreen from '../screens/EditarCidadaoScreen';
-import FuncionariosScreen, { Funcionario } from '../screens/FuncionarioScreen';
+import FuncionariosScreen, { Funcionario } from '../screens/FuncionariosScreen';
 import CriarFuncionarioScreen from '../screens/CriarFuncionarioScreen';
 import EditarFuncionarioScreen from '../screens/EditarFuncionarioScreen';
 

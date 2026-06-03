@@ -26,7 +26,7 @@ const CidadaosScreen = ({ navigation }: Props) => {
 
   const fetchCidadaos = async () => {
     setLoading(true);
-    const response = await fetch('http://localhost:8000/cidadaos/');
+    const response = await fetch('http://localhost:8000/cidadaos/api/');
     const data = await response.json();
     setCidadaos(data);
     setLoading(false);
@@ -39,7 +39,7 @@ const CidadaosScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://localhost:8000/cidadaos/${id}/`, {
+    await fetch(`http://localhost:8000/cidadaos/api/${id}/`, {
       method: 'DELETE',
     });
     setCidadaos(prev => prev.filter(u => u.id !== id));

@@ -26,7 +26,7 @@ const FuncionariosScreen = ({ navigation }: Props) => {
 
   const fetchfuncionarios = async () => {
     setLoading(true);
-    const response = await fetch('http://localhost:8000/funcionarios/');
+    const response = await fetch('http://localhost:8000/funcionarios/api/');
     const data = await response.json();
     setfuncionarios(data);
     setLoading(false);
@@ -39,7 +39,7 @@ const FuncionariosScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://localhost:8000/funcionarios/${id}/`, {
+    await fetch(`http://localhost:8000/funcionarios/api/${id}/`, {
       method: 'DELETE',
     });
     setfuncionarios(prev => prev.filter(u => u.id !== id));
