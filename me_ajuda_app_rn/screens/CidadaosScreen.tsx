@@ -55,6 +55,8 @@ const CidadaosScreen = ({ navigation }: Props) => {
 
         <Text style={styles.info}>✉️ {item.email}</Text>
         <Text style={styles.info}>📄 CPF: {item.cpf}</Text>
+        <Text style={styles.info}>🆔 ID Cidadão: {item.id}</Text>
+        <Text style={styles.info}>🆔 ID User: {item.user}</Text>
 
         <View style={styles.row}>
           <TouchableOpacity

@@ -51,11 +51,12 @@ const EquipamentosScreen = ({ navigation }: Props) => {
           </Text>
         </View>
       </View>
-      
+
       <Text style={styles.description}>{item.descricao}</Text>
-      
+      <Text style={styles.description}>🆔 ID: {item.id}</Text>
+
       <Text style={styles.preco}>Preço/Hora: R$ {Number(item.preco).toFixed(2)}</Text>
-      
+
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.editButton}
@@ -63,7 +64,7 @@ const EquipamentosScreen = ({ navigation }: Props) => {
         >
           <Text style={styles.editText}>Editar</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => handleDelete(item.id)}
@@ -74,7 +75,7 @@ const EquipamentosScreen = ({ navigation }: Props) => {
     </View>
   );
 
-  return ( 
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>Equipamentos</Text>
       {loading ? (
@@ -161,9 +162,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginRight: 8,
   },
-  editText: { 
-    color: '#fff', 
-    fontWeight: '500' 
+  editText: {
+    color: '#fff',
+    fontWeight: '500'
   },
   fab: {
     position: 'absolute',
@@ -180,10 +181,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginRight: 8,
   },
-  row: { 
-    flexDirection: 'row', 
-    marginTop: 12, 
-    justifyContent: 'flex-end' 
+  row: {
+    flexDirection: 'row',
+    marginTop: 12,
+    justifyContent: 'flex-end'
   },
 });
 

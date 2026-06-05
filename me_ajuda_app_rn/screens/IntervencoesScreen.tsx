@@ -50,6 +50,7 @@ const IntervencoesScreen = ({ navigation }: Props) => {
 
       <Text style={styles.info}>Data da Execução: {item.data_exec}</Text>
       <Text style={styles.info}>Custo: R$ {Number(item.custo_trab).toFixed(2)}</Text>
+      <Text style={styles.info}>🆔 ID: {item.id}</Text>
 
       <Text style={styles.description} numberOfLines={2}>{item.relato}</Text>
 
