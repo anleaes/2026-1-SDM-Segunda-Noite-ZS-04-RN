@@ -60,10 +60,11 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
         <Text style={styles.titulo}>{item.titulo}</Text>
         <Text style={styles.status}>{getStatusLabel(item.status)}</Text>
       </View>
-      
+
       <Text style={styles.endereco}>{item.endereco}, {item.numero}</Text>
       <Text style={styles.descricao} numberOfLines={2}>{item.descricao}</Text>
-      
+      <Text style={styles.descricao}>🆔 ID: {item.id}</Text>
+
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.editButton}
@@ -71,7 +72,7 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
         >
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => handleDelete(item.id)}
@@ -82,7 +83,7 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
     </View>
   );
 
-  return ( 
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>Ocorrências</Text>
       {loading ? (
@@ -164,9 +165,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
   },
-  row: { 
-    flexDirection: 'row', 
-    marginTop: 12, 
+  row: {
+    flexDirection: 'row',
+    marginTop: 12,
     justifyContent: 'flex-end',
   },
   editButton: {
@@ -182,9 +183,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 6,
   },
-  buttonText: { 
-    color: '#fff', 
-    fontWeight: '500' 
+  buttonText: {
+    color: '#fff',
+    fontWeight: '500'
   },
   fab: {
     position: 'absolute',

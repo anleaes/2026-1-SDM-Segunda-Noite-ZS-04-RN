@@ -48,9 +48,10 @@ const ServicosScreen = ({ navigation }: Props) => {
           <Text style={styles.badgeText}>Prioridade: {item.nivel_prioridade}</Text>
         </View>
       </View>
-      
+
       <Text style={styles.description}>{item.descricao}</Text>
-      
+      <Text style={styles.description}>🆔 ID: {item.id}</Text>
+
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.editButton}
@@ -58,7 +59,7 @@ const ServicosScreen = ({ navigation }: Props) => {
         >
           <Text style={styles.editText}>Editar</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => handleDelete(item.id)}
@@ -69,7 +70,7 @@ const ServicosScreen = ({ navigation }: Props) => {
     </View>
   );
 
-  return ( 
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>Serviços</Text>
       {loading ? (
@@ -145,8 +146,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 12,
   },
-  row: { 
-    flexDirection: 'row', 
+  row: {
+    flexDirection: 'row',
     justifyContent: 'flex-end',
   },
   editButton: {
@@ -162,9 +163,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 6,
   },
-  editText: { 
-    color: '#fff', 
-    fontWeight: '500' 
+  editText: {
+    color: '#fff',
+    fontWeight: '500'
   },
   fab: {
     position: 'absolute',

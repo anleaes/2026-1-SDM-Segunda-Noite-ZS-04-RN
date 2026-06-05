@@ -45,6 +45,7 @@ const SecretariasScreen = ({ navigation }: Props) => {
     <View style={styles.card}>
       <Text style={styles.name}>{item.nome} ({item.sigla})</Text>
       <Text style={styles.description}>{item.descricao}</Text>
+      <Text style={styles.description}>🆔 ID: {item.id}</Text>
 
       {item.site ? <Text style={styles.site}>Site: {item.site}</Text> : null}
 
