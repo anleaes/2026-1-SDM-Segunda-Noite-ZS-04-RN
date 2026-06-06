@@ -26,6 +26,7 @@ import CriarFuncionarioScreen from '../screens/CriarFuncionarioScreen';
 import EditarFuncionarioScreen from '../screens/EditarFuncionarioScreen';
 import IntervencoesEquipamentosScreen, { IntervencaoEquipamento } from '../screens/IntervencoesEquipamentosScreen';
 import CriarIntervencaoEquipamentoScreen from '../screens/CriarIntervencaoEquipamentoScreen';
+import EditarIntervencaoEquipamentoScreen from '../screens/EditarIntervencaoEquipamentoScreen';
 
 export type DrawerParamList = {
   Home: undefined;
@@ -198,18 +199,18 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="IntervencoesEquipamentos"
         component={IntervencoesEquipamentosScreen}
-        options={{ drawerIcon: ({ color, size }) => <Ionicons name="construct-outline" size={size} color={color} />, title: 'Aloc. de Equip.' }}
+        options={{ drawerIcon: ({ color, size }) => <Ionicons name="construct-outline" size={size} color={color} />, title: 'Alocação de Equip.' }}
       />
       <Drawer.Screen
         name="CriarIntervencaoEquipamento"
         component={CriarIntervencaoEquipamentoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Nova Alocação' }}
       />
-      {/*<Drawer.Screen
+      <Drawer.Screen
         name="EditarIntervencaoEquipamento"
         component={EditarIntervencaoEquipamentoScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar Alocação' }}
-      /> */}
+      />
     </Drawer.Navigator>
   );
 };
