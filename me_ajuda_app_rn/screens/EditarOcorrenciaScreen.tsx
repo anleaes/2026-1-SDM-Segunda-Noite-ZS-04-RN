@@ -31,23 +31,33 @@ const EditarOcorrenciaScreen = ({ route, navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
+
+    const payload: any = {
+      titulo,
+      endereco,
+      numero,
+      complemento,
+      descricao,
+      status,
+      cidadao: parseInt(cidadaoId),
+      servico: parseInt(servicoId)
+    };
+
+    if (status === 'FEC') {
+      payload.fechado_em = new Date().toISOString();
+    } else {
+      payload.fechado_em = null;
+    }
+
     const res = await fetch(
       `http://localhost:8000/ocorrencias/api/${ocorrencia.id}/`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          titulo,
-          endereco,
-          numero,
-          complemento,
-          descricao,
-          status,
-          cidadao: parseInt(cidadaoId),
-          servico: parseInt(servicoId)
-        }),
+        body: JSON.stringify(payload),
       }
     );
+
     navigation.navigate('Ocorrencias');
     setSaving(false);
   };
