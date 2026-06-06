@@ -15,6 +15,7 @@ export type Ocorrencia = {
   descricao: string;
   status: 'ABE' | 'AND' | 'FEC';
   criado_em: string;
+  fechado_em?: string;
   complemento?: string;
   cidadao: number;
   servico: number;
@@ -61,6 +62,10 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
         <Text style={styles.status}>{getStatusLabel(item.status)}</Text>
       </View>
 
+      <Text style={styles.info}>Criada em: {item.criado_em.split('T')[0].split('-').reverse().join('/')}</Text>
+      {item.fechado_em && (
+        <Text style={styles.info}>Fechada em: {item.fechado_em.split('T')[0].split('-').reverse().join('/')}</Text>
+      )}
       <Text style={styles.info}>ID: {item.id}</Text>
       <Text style={styles.info}>{item.endereco}, {item.numero}</Text>
       <Text style={styles.description} numberOfLines={2}>{item.descricao}</Text>
