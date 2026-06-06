@@ -30,19 +30,17 @@ const EditarIntervencaoEquipamentoScreen = ({ route, navigation }: Props) => {
       return;
     }
 
-    const payload = {
-      intervencao: parseInt(intervencaoId),
-      equipamento: parseInt(equipamentoId),
-      horas_usado: parseInt(horasUsado),
-      custo_total: parseFloat(custoTotal.replace(',', '.')),
-    };
-
     const res = await fetch(
       `http://localhost:8000/equipamentos_intervencao/api/${intervencaoEquipamento.id}/`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          intervencao: parseInt(intervencaoId),
+          equipamento: parseInt(equipamentoId),
+          horas_usado: parseInt(horasUsado),
+          custo_total: parseFloat(custoTotal.replace(',', '.')),
+        }),
       }
     );
 

@@ -38,22 +38,20 @@ const CriarCidadaoScreen = ({ navigation }: Props) => {
       return;
     }
 
-    const payload: any = {
-      nome,
-      sobrenome,
-      cpf,
-      email,
-      user: parseInt(userId),
-      fone,
-      endereco,
-      cep,
-      bairro
-    };
-
     await fetch('http://localhost:8000/cidadaos/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        nome,
+        sobrenome,
+        cpf,
+        email,
+        user: parseInt(userId),
+        fone,
+        endereco,
+        cep,
+        bairro
+      }),
     });
 
     navigation.navigate('Cidadaos');

@@ -39,22 +39,20 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
       return;
     }
 
-    const payload: any = {
-      nome,
-      sobrenome,
-      cpf,
-      email,
-      user: parseInt(userId),
-      registro,
-      funcao,
-      ativo,
-      secretarias: secretarias.split(',').map(s => parseInt(s.trim()))
-    };
-
     await fetch('http://localhost:8000/funcionarios/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        nome,
+        sobrenome,
+        cpf,
+        email,
+        user: parseInt(userId),
+        registro,
+        funcao,
+        ativo,
+        secretarias: secretarias.split(',').map(s => parseInt(s.trim()))
+      }),
     });
 
     navigation.navigate('Funcionarios');

@@ -85,17 +85,15 @@ const CriarIntervencaoEquipamentoScreen = ({ navigation }: Props) => {
     }
 
     for (const item of alocacao) {
-      const payload = {
-        intervencao: parseInt(intervencaoId),
-        equipamento: item.equipamento,
-        horas_usado: item.horas_usado,
-        custo_total: item.custo_total
-      };
-
       await fetch('http://localhost:8000/equipamentos_intervencao/api/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          intervencao: parseInt(intervencaoId),
+          equipamento: item.equipamento,
+          horas_usado: item.horas_usado,
+          custo_total: item.custo_total
+        }),
       });
     }
 

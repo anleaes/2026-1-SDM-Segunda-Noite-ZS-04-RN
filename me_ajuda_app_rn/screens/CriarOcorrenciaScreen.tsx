@@ -38,21 +38,19 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       return;
     }
 
-    const payload = {
-      titulo,
-      endereco,
-      numero: numero || null,
-      complemento: complemento || null,
-      descricao,
-      cidadao: parseInt(cidadaoId),
-      servico: parseInt(servicoId),
-      status: 'ABE'
-    };
-
     const res = await fetch('http://localhost:8000/ocorrencias/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        titulo,
+        endereco,
+        numero: numero || null,
+        complemento: complemento || null,
+        descricao,
+        cidadao: parseInt(cidadaoId),
+        servico: parseInt(servicoId),
+        status: 'ABE'
+      }),
     });
 
     navigation.navigate('Ocorrencias');
