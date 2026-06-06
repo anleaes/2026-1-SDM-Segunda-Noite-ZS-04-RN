@@ -32,21 +32,25 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
-    const payload = {
-      titulo,
-      endereco,
-      numero,
-      complemento,
-      descricao,
-      cidadao: parseInt(cidadaoId),
-      servico: parseInt(servicoId),
-      status: 'ABE'
-    };
+    if (!titulo || !endereco || !descricao || !cidadaoId || !servicoId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
 
     const res = await fetch('http://localhost:8000/ocorrencias/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        titulo,
+        endereco,
+        numero: numero || null,
+        complemento: complemento || null,
+        descricao,
+        cidadao: parseInt(cidadaoId),
+        servico: parseInt(servicoId),
+        status: 'ABE'
+      }),
     });
 
     navigation.navigate('Ocorrencias');
@@ -57,10 +61,10 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Nova Ocorrência</Text>
 
-      <Text style={styles.label}>Título</Text>
+      <Text style={styles.label}>Título *</Text>
       <TextInput value={titulo} onChangeText={setTitulo} style={styles.input} />
 
-      <Text style={styles.label}>Endereço</Text>
+      <Text style={styles.label}>Endereço *</Text>
       <TextInput value={endereco} onChangeText={setEndereco} style={styles.input} />
 
       <Text style={styles.label}>Número</Text>
@@ -69,13 +73,13 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       <Text style={styles.label}>Complemento</Text>
       <TextInput value={complemento} onChangeText={setComplemento} style={styles.input} />
 
-      <Text style={styles.label}>ID do Cidadão</Text>
+      <Text style={styles.label}>ID do Cidadão *</Text>
       <TextInput value={cidadaoId} onChangeText={setCidadaoId} style={styles.input} keyboardType="numeric" />
 
-      <Text style={styles.label}>ID do Serviço</Text>
+      <Text style={styles.label}>ID do Serviço *</Text>
       <TextInput value={servicoId} onChangeText={setServicoId} style={styles.input} keyboardType="numeric" />
 
-      <Text style={styles.label}>Descrição</Text>
+      <Text style={styles.label}>Descrição *</Text>
       <TextInput
         value={descricao}
         onChangeText={setDescricao}

@@ -33,14 +33,26 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
-    const payload: any = { nome, sobrenome, cpf, email, user: parseInt(userId) };
-
-    Object.assign(payload, { registro, funcao, ativo, secretarias: secretarias.split(',').map(s => parseInt(s.trim())) });
+    if (!nome || !sobrenome || !cpf || !email || !userId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
 
     await fetch('http://localhost:8000/funcionarios/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        nome,
+        sobrenome,
+        cpf,
+        email,
+        user: parseInt(userId),
+        registro,
+        funcao,
+        ativo,
+        secretarias: secretarias.split(',').map(s => parseInt(s.trim()))
+      }),
     });
 
     navigation.navigate('Funcionarios');
@@ -52,25 +64,25 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
       <Text style={styles.title}>Novo Funcionário</Text>
 
       <Text style={styles.sectionTitle}>Dados Básicos</Text>
-      <Text style={styles.label}>Nome</Text>
+      <Text style={styles.label}>Nome *</Text>
       <TextInput value={nome} onChangeText={setNome} style={styles.input} />
 
-      <Text style={styles.label}>Sobrenome</Text>
+      <Text style={styles.label}>Sobrenome *</Text>
       <TextInput value={sobrenome} onChangeText={setSobrenome} style={styles.input} />
 
-      <Text style={styles.label}>CPF</Text>
+      <Text style={styles.label}>CPF *</Text>
       <TextInput value={cpf} onChangeText={setCpf} style={styles.input} keyboardType="numeric" />
 
-      <Text style={styles.label}>E-mail</Text>
+      <Text style={styles.label}>E-mail *</Text>
       <TextInput value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
 
-      <Text style={styles.label}>ID do User</Text>
+      <Text style={styles.label}>ID do User *</Text>
       <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric" />
 
 
       <Text style={styles.sectionTitle}>Dados do Funcionário</Text>
 
-      <Text style={styles.label}>Secretarias (IDs, separados por vírgula)</Text>
+      <Text style={styles.label}>Secretarias (IDs, separados por vírgula) *</Text>
       <TextInput
         value={secretarias}
         onChangeText={setSecretarias}
@@ -78,7 +90,7 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
         placeholder="Ex: 1, 2, 3"
       />
 
-      <Text style={styles.label}>Registro (Matrícula)</Text>
+      <Text style={styles.label}>Registro (Matrícula) *</Text>
       <TextInput value={registro} onChangeText={setRegistro} style={styles.input} />
 
       <Text style={styles.label}>Função</Text>

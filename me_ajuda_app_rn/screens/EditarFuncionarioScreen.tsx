@@ -39,14 +39,26 @@ const EditarFuncionarioScreen = ({ route, navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
-    const payload: any = { nome, sobrenome, cpf, email, user: parseInt(userId) };
-
-    Object.assign(payload, { registro, funcao, ativo, secretarias: secretarias.split(',').map(s => parseInt(s.trim())) });
+    if (!nome || !sobrenome || !cpf || !email || !userId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
 
     await fetch(`http://localhost:8000/funcionarios/api/${funcionario.id}/`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        nome,
+        sobrenome,
+        cpf,
+        email,
+        user: parseInt(userId),
+        registro,
+        funcao,
+        ativo,
+        secretarias: secretarias.split(',').map(s => parseInt(s.trim()))
+      }),
     });
 
     navigation.navigate('Funcionarios');

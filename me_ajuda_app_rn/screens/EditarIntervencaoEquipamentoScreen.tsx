@@ -24,19 +24,23 @@ const EditarIntervencaoEquipamentoScreen = ({ route, navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
-    const payload = {
-      intervencao: parseInt(intervencaoId),
-      equipamento: parseInt(equipamentoId),
-      horas_usado: parseInt(horasUsado) || 0,
-      custo_total: parseFloat(custoTotal.replace(',', '.')) || 0.0,
-    };
+    if (!intervencaoId || !equipamentoId || !horasUsado || !custoTotal) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
 
     const res = await fetch(
       `http://localhost:8000/equipamentos_intervencao/api/${intervencaoEquipamento.id}/`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          intervencao: parseInt(intervencaoId),
+          equipamento: parseInt(equipamentoId),
+          horas_usado: parseInt(horasUsado),
+          custo_total: parseFloat(custoTotal.replace(',', '.')),
+        }),
       }
     );
 

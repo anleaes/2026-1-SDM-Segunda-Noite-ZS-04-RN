@@ -23,6 +23,13 @@ const EditarEquipamentoScreen = ({ route, navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
+
+    if (!nome || !descricao || !preco) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     const res = await fetch(
       `http://localhost:8000/equipamentos/api/${equipamento.id}/`,
       {
@@ -31,7 +38,7 @@ const EditarEquipamentoScreen = ({ route, navigation }: Props) => {
         body: JSON.stringify({ 
           nome, 
           descricao, 
-          preco: parseFloat(preco) || 0,
+          preco: parseFloat(preco),
           disponivel 
         }),
       }

@@ -32,14 +32,26 @@ const CriarCidadaoScreen = ({ navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
-    const payload: any = { nome, sobrenome, cpf, email, user: parseInt(userId) };
-
-    Object.assign(payload, { fone, endereco, cep, bairro });
+    if (!nome || !sobrenome || !cpf || !email || !userId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
 
     await fetch('http://localhost:8000/cidadaos/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        nome,
+        sobrenome,
+        cpf,
+        email,
+        user: parseInt(userId),
+        fone,
+        endereco,
+        cep,
+        bairro
+      }),
     });
 
     navigation.navigate('Cidadaos');
@@ -51,32 +63,32 @@ const CriarCidadaoScreen = ({ navigation }: Props) => {
       <Text style={styles.title}>Novo Cidadão</Text>
 
       <Text style={styles.sectionTitle}>Dados Básicos</Text>
-      <Text style={styles.label}>Nome</Text>
+      <Text style={styles.label}>Nome *</Text>
       <TextInput value={nome} onChangeText={setNome} style={styles.input} />
 
-      <Text style={styles.label}>Sobrenome</Text>
+      <Text style={styles.label}>Sobrenome *</Text>
       <TextInput value={sobrenome} onChangeText={setSobrenome} style={styles.input} />
 
-      <Text style={styles.label}>CPF</Text>
+      <Text style={styles.label}>CPF *</Text>
       <TextInput value={cpf} onChangeText={setCpf} style={styles.input} keyboardType="numeric" />
 
-      <Text style={styles.label}>E-mail</Text>
+      <Text style={styles.label}>E-mail *</Text>
       <TextInput value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
 
-      <Text style={styles.label}>ID do User</Text>
+      <Text style={styles.label}>ID do User *</Text>
       <TextInput value={userId} onChangeText={setUserId} style={styles.input} keyboardType="numeric" />
 
       <Text style={styles.sectionTitle}>Dados do Cidadão</Text>
-      <Text style={styles.label}>Telefone</Text>
+      <Text style={styles.label}>Telefone *</Text>
       <TextInput value={fone} onChangeText={setFone} style={styles.input} keyboardType="phone-pad" />
 
-      <Text style={styles.label}>Endereço</Text>
+      <Text style={styles.label}>Endereço *</Text>
       <TextInput value={endereco} onChangeText={setEndereco} style={styles.input} />
 
-      <Text style={styles.label}>CEP</Text>
+      <Text style={styles.label}>CEP *</Text>
       <TextInput value={cep} onChangeText={setCep} style={styles.input} keyboardType="numeric" />
 
-      <Text style={styles.label}>Bairro</Text>
+      <Text style={styles.label}>Bairro *</Text>
       <TextInput value={bairro} onChangeText={setBairro} style={styles.input} />
 
       <View style={styles.buttonSpacer}>

@@ -25,6 +25,13 @@ const CriarSecretariaScreen = ({ navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
+
+    if (!nome || !sigla || !descricao || !site) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+    
     await fetch('http://localhost:8000/secretarias/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -38,14 +45,14 @@ const CriarSecretariaScreen = ({ navigation }: Props) => {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Nova Secretaria</Text>
 
-      <Text style={styles.label}>Nome</Text>
+      <Text style={styles.label}>Nome *</Text>
       <TextInput
         value={nome}
         onChangeText={setNome}
         style={styles.input}
       />
 
-      <Text style={styles.label}>Sigla</Text>
+      <Text style={styles.label}>Sigla *</Text>
       <TextInput
         value={sigla}
         onChangeText={setSigla}
@@ -53,7 +60,7 @@ const CriarSecretariaScreen = ({ navigation }: Props) => {
         autoCapitalize="characters"
       />
 
-      <Text style={styles.label}>Site</Text>
+      <Text style={styles.label}>Site *</Text>
       <TextInput
         value={site}
         onChangeText={setSite}
@@ -62,7 +69,7 @@ const CriarSecretariaScreen = ({ navigation }: Props) => {
         autoCapitalize="none"
       />
 
-      <Text style={styles.label}>Descrição</Text>
+      <Text style={styles.label}>Descrição *</Text>
       <TextInput
         value={descricao}
         onChangeText={setDescricao}

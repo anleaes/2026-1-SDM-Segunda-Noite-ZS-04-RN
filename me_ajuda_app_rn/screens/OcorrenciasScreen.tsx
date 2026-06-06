@@ -11,7 +11,7 @@ export type Ocorrencia = {
   id: number;
   titulo: string;
   endereco: string;
-  numero: string;
+  numero?: string;
   descricao: string;
   status: 'ABE' | 'AND' | 'FEC';
   criado_em: string;

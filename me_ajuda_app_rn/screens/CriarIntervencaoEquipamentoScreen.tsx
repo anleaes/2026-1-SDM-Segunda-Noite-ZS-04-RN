@@ -36,6 +36,12 @@ const CriarIntervencaoEquipamentoScreen = ({ navigation }: Props) => {
 
   const adicionarEmAlocacao = () => {
 
+    if (!intervencaoId || !equipamentoId || !horasUsado || !custoTotal) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     const novoItem: ItemAlocacao = {
       id_temporario: Math.random().toString(),
       equipamento: parseInt(equipamentoId),
@@ -66,18 +72,28 @@ const CriarIntervencaoEquipamentoScreen = ({ navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
-    for (const item of alocacao) {
-      const payload = {
-        intervencao: parseInt(intervencaoId),
-        equipamento: item.equipamento,
-        horas_usado: item.horas_usado,
-        custo_total: item.custo_total
-      };
+    if (!intervencaoId) {
+      alert('Por favor, informe o ID da intervenção.');
+      setSaving(false);
+      return;
+    }
 
+    if (alocacao.length === 0) {
+      alert('Por favor, adicione pelo menos um equipamento à alocação.');
+      setSaving(false);
+      return;
+    }
+
+    for (const item of alocacao) {
       await fetch('http://localhost:8000/equipamentos_intervencao/api/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          intervencao: parseInt(intervencaoId),
+          equipamento: item.equipamento,
+          horas_usado: item.horas_usado,
+          custo_total: item.custo_total
+        }),
       });
     }
 
@@ -88,10 +104,10 @@ const CriarIntervencaoEquipamentoScreen = ({ navigation }: Props) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Alocar Equipamentos</Text>
+      <Text style={styles.title}>Nova Alocação de Equipamentos</Text>
 
       <View style={styles.section}>
-        <Text style={styles.label}>ID da Intervenção</Text>
+        <Text style={styles.label}>ID da Intervenção *</Text>
         <TextInput
           value={intervencaoId}
           onChangeText={setIntervencaoId}
@@ -104,16 +120,16 @@ const CriarIntervencaoEquipamentoScreen = ({ navigation }: Props) => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Adicionar Equipamento</Text>
 
-        <Text style={styles.label}>ID do Equipamento</Text>
+        <Text style={styles.label}>ID do Equipamento *</Text>
         <TextInput value={equipamentoId} onChangeText={setEquipamentoId} style={styles.input} keyboardType="numeric" />
 
         <View style={styles.row}>
           <View style={{ flex: 1, marginRight: 8 }}>
-            <Text style={styles.label}>Horas de Uso</Text>
+            <Text style={styles.label}>Horas de Uso *</Text>
             <TextInput value={horasUsado} onChangeText={setHorasUsado} style={styles.input} keyboardType="numeric" />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={styles.label}>Custo (R$)</Text>
+            <Text style={styles.label}>Custo (R$) *</Text>
             <TextInput value={custoTotal} onChangeText={setCustoTotal} style={styles.input} keyboardType="numeric" placeholder="Ex: 150.50" />
           </View>
         </View>

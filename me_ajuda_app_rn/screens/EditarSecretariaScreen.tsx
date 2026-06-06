@@ -23,6 +23,13 @@ const EditarSecretariaScreen = ({ route, navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
+
+    if (!nome || !sigla || !descricao || !site) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     const res = await fetch(
       `http://localhost:8000/secretarias/api/${secretaria.id}/`,
       {

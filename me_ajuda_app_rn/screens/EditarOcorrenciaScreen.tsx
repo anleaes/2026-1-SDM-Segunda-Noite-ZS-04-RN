@@ -21,7 +21,7 @@ const EditarOcorrenciaScreen = ({ route, navigation }: Props) => {
   useEffect(() => {
     setTitulo(ocorrencia.titulo);
     setEndereco(ocorrencia.endereco);
-    setNumero(ocorrencia.numero);
+    setNumero(ocorrencia.numero || '');
     setComplemento(ocorrencia.complemento || '');
     setDescricao(ocorrencia.descricao);
     setStatus(ocorrencia.status);
@@ -31,23 +31,39 @@ const EditarOcorrenciaScreen = ({ route, navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
+
+    if (!titulo || !endereco || !descricao || !cidadaoId || !servicoId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
+    const payload: any = {
+      titulo,
+      endereco,
+      numero: numero || null,
+      complemento: complemento || null,
+      descricao,
+      status,
+      cidadao: parseInt(cidadaoId),
+      servico: parseInt(servicoId)
+    };
+
+    if (status === 'FEC') {
+      payload.fechado_em = new Date().toISOString();
+    } else {
+      payload.fechado_em = null;
+    }
+
     const res = await fetch(
       `http://localhost:8000/ocorrencias/api/${ocorrencia.id}/`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          titulo,
-          endereco,
-          numero,
-          complemento,
-          descricao,
-          status,
-          cidadao: parseInt(cidadaoId),
-          servico: parseInt(servicoId)
-        }),
+        body: JSON.stringify(payload),
       }
     );
+
     navigation.navigate('Ocorrencias');
     setSaving(false);
   };

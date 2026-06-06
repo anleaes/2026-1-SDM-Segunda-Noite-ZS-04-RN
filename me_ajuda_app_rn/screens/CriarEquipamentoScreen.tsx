@@ -25,13 +25,20 @@ const CriarEquipamentoScreen = ({ navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
+
+    if (!nome || !descricao || !preco) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     await fetch('http://localhost:8000/equipamentos/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         nome, 
         descricao, 
-        preco: parseFloat(preco) || 0,
+        preco: parseFloat(preco),
         disponivel 
       }),
     });
@@ -43,14 +50,14 @@ const CriarEquipamentoScreen = ({ navigation }: Props) => {
     <View style={styles.container}>
       <Text style={styles.title}>Novo Equipamento</Text>
       
-      <Text style={styles.label}>Nome</Text>
+      <Text style={styles.label}>Nome *</Text>
       <TextInput
         value={nome}
         onChangeText={setNome}
         style={styles.input}
       />
       
-      <Text style={styles.label}>Descrição</Text>
+      <Text style={styles.label}>Descrição *</Text>
       <TextInput
         value={descricao}
         onChangeText={setDescricao}
@@ -58,7 +65,7 @@ const CriarEquipamentoScreen = ({ navigation }: Props) => {
         multiline
       />
 
-      <Text style={styles.label}>Preço (R$)</Text>
+      <Text style={styles.label}>Preço (R$) *</Text>
       <TextInput
         value={preco}
         onChangeText={setPreco}
