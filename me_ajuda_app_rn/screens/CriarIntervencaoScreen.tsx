@@ -27,6 +27,8 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
     }, [])
   );
 
+  const dataFormatada = dataExec.split('/').reverse().join('-');
+
   const handleSave = async () => {
     setSaving(true);
     await fetch('http://localhost:8000/intervencoes/api/', {
@@ -34,7 +36,7 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         titulo,
-        data_exec: dataExec,
+        data_exec: dataFormatada,
         relato,
         custo_trab: parseFloat(custoTrab) || 0,
         ocorrencia: ocorrenciaId,
@@ -56,12 +58,12 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
         style={styles.input}
       />
 
-      <Text style={styles.label}>Data de Execução (YYYY-MM-DD)</Text>
+      <Text style={styles.label}>Data de Execução (DD/MM/AAAA)</Text>
       <TextInput
         value={dataExec}
         onChangeText={setDataExec}
         style={styles.input}
-        placeholder="Ex: 2026-05-31"
+        placeholder="Ex: 31/05/2026"
       />
 
       <Text style={styles.label}>Custo do Trabalho (R$)</Text>
