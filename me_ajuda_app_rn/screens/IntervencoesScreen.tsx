@@ -13,7 +13,6 @@ export type Intervencao = {
   data_exec: string;
   relato: string;
   custo_trab: string | number;
-  doc: string | null;
   ocorrencia: number;
   funcionario: number;
 };
@@ -48,15 +47,11 @@ const IntervencoesScreen = ({ navigation }: Props) => {
     <View style={styles.card}>
       <Text style={styles.name}>{item.titulo}</Text>
 
-      <Text style={styles.info}>Data da Execução: {item.data_exec}</Text>
+      <Text style={styles.info}>ID: {item.id}</Text>
+      <Text style={styles.info}>Data da Execução: {item.data_exec.split('-').reverse().join('/')}</Text>
       <Text style={styles.info}>Custo: R$ {Number(item.custo_trab).toFixed(2)}</Text>
-      <Text style={styles.info}>🆔 ID: {item.id}</Text>
 
       <Text style={styles.description} numberOfLines={2}>{item.relato}</Text>
-
-      {item.doc && (
-        <Text style={styles.docIndicator}>📎 Documento Anexado</Text>
-      )}
 
       <View style={styles.row}>
         <TouchableOpacity
@@ -140,12 +135,6 @@ const styles = StyleSheet.create({
     color: '#666',
     marginTop: 6,
     marginBottom: 4,
-  },
-  docIndicator: {
-    fontSize: 12,
-    color: '#0D47A1',
-    fontStyle: 'italic',
-    marginTop: 4,
   },
   editButton: {
     backgroundColor: '#4B7BE5',

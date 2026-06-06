@@ -18,12 +18,14 @@ const EditarIntervencaoScreen = ({ route, navigation }: Props) => {
 
   useEffect(() => {
     setTitulo(intervencao.titulo);
-    setDataExec(intervencao.data_exec);
+    setDataExec(intervencao.data_exec.split('-').reverse().join('/'));
     setRelato(intervencao.relato);
     setCustoTrab(String(intervencao.custo_trab));
     setOcorrenciaId(String(intervencao.ocorrencia));
     setFuncionarioId(String(intervencao.funcionario));
   }, [intervencao]);
+
+  const dataFormatada = dataExec.split('/').reverse().join('-');
 
   const handleSave = async () => {
     setSaving(true);
@@ -34,7 +36,7 @@ const EditarIntervencaoScreen = ({ route, navigation }: Props) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           titulo,
-          data_exec: dataExec,
+          data_exec: dataFormatada,
           relato,
           custo_trab: parseFloat(custoTrab) || 0,
           ocorrencia: parseInt(ocorrenciaId) || null,
@@ -55,12 +57,12 @@ const EditarIntervencaoScreen = ({ route, navigation }: Props) => {
         style={styles.input}
       />
 
-      <Text style={styles.label}>Data de Execução (YYYY-MM-DD)</Text>
+      <Text style={styles.label}>Data de Execução (DD/MM/AAAA)</Text>
       <TextInput
         value={dataExec}
         onChangeText={setDataExec}
         style={styles.input}
-        placeholder="Ex: 2026-05-31"
+        placeholder="Ex: 31/05/2026"
       />
 
       <Text style={styles.label}>Custo do Trabalho (R$)</Text>
