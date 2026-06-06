@@ -29,6 +29,13 @@ const EditarIntervencaoScreen = ({ route, navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
+
+    if (!titulo || !dataExec || !relato || !custoTrab || !ocorrenciaId || !funcionarioId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     const res = await fetch(
       `http://localhost:8000/intervencoes/api/${intervencao.id}/`,
       {
@@ -38,9 +45,9 @@ const EditarIntervencaoScreen = ({ route, navigation }: Props) => {
           titulo,
           data_exec: dataFormatada,
           relato,
-          custo_trab: parseFloat(custoTrab) || 0,
-          ocorrencia: parseInt(ocorrenciaId) || null,
-          funcionario: parseInt(funcionarioId) || null
+          custo_trab: parseFloat(custoTrab),
+          ocorrencia: parseInt(ocorrenciaId),
+          funcionario: parseInt(funcionarioId)
         }),
       }
     );

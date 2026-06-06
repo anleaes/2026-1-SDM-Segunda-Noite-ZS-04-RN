@@ -21,7 +21,7 @@ const EditarOcorrenciaScreen = ({ route, navigation }: Props) => {
   useEffect(() => {
     setTitulo(ocorrencia.titulo);
     setEndereco(ocorrencia.endereco);
-    setNumero(ocorrencia.numero);
+    setNumero(ocorrencia.numero || '');
     setComplemento(ocorrencia.complemento || '');
     setDescricao(ocorrencia.descricao);
     setStatus(ocorrencia.status);
@@ -32,11 +32,17 @@ const EditarOcorrenciaScreen = ({ route, navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
+    if (!titulo || !endereco || !descricao || !cidadaoId || !servicoId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     const payload: any = {
       titulo,
       endereco,
-      numero,
-      complemento,
+      numero: numero || null,
+      complemento: complemento || null,
       descricao,
       status,
       cidadao: parseInt(cidadaoId),

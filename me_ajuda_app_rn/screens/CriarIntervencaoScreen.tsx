@@ -31,6 +31,13 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
+
+    if (!titulo || !dataExec || !relato || !custoTrab || !ocorrenciaId || !funcionarioId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     await fetch('http://localhost:8000/intervencoes/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -38,7 +45,7 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
         titulo,
         data_exec: dataFormatada,
         relato,
-        custo_trab: parseFloat(custoTrab) || 0,
+        custo_trab: parseFloat(custoTrab),
         ocorrencia: ocorrenciaId,
         funcionario: funcionarioId
       }),
@@ -51,14 +58,14 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Nova Intervenção</Text>
 
-      <Text style={styles.label}>Título</Text>
+      <Text style={styles.label}>Título *</Text>
       <TextInput
         value={titulo}
         onChangeText={setTitulo}
         style={styles.input}
       />
 
-      <Text style={styles.label}>Data de Execução (DD/MM/AAAA)</Text>
+      <Text style={styles.label}>Data de Execução (DD/MM/AAAA) *</Text>
       <TextInput
         value={dataExec}
         onChangeText={setDataExec}
@@ -66,7 +73,7 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
         placeholder="Ex: 31/05/2026"
       />
 
-      <Text style={styles.label}>Custo do Trabalho (R$)</Text>
+      <Text style={styles.label}>Custo do Trabalho (R$) *</Text>
       <TextInput
         value={custoTrab}
         onChangeText={setCustoTrab}
@@ -74,7 +81,7 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
         keyboardType="numeric"
       />
 
-      <Text style={styles.label}>ID da Ocorrência</Text>
+      <Text style={styles.label}>ID da Ocorrência *</Text>
       <TextInput
         value={ocorrenciaId}
         onChangeText={setOcorrenciaId}
@@ -82,7 +89,7 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
         keyboardType="numeric"
       />
 
-      <Text style={styles.label}>ID do Funcionário</Text>
+      <Text style={styles.label}>ID do Funcionário *</Text>
       <TextInput
         value={funcionarioId}
         onChangeText={setFuncionarioId}
@@ -90,7 +97,7 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
         keyboardType="numeric"
       />
 
-      <Text style={styles.label}>Relato</Text>
+      <Text style={styles.label}>Relato *</Text>
       <TextInput
         value={relato}
         onChangeText={setRelato}

@@ -24,11 +24,17 @@ const EditarIntervencaoEquipamentoScreen = ({ route, navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
+    if (!intervencaoId || !equipamentoId || !horasUsado || !custoTotal) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     const payload = {
       intervencao: parseInt(intervencaoId),
       equipamento: parseInt(equipamentoId),
-      horas_usado: parseInt(horasUsado) || 0,
-      custo_total: parseFloat(custoTotal.replace(',', '.')) || 0.0,
+      horas_usado: parseInt(horasUsado),
+      custo_total: parseFloat(custoTotal.replace(',', '.')),
     };
 
     const res = await fetch(

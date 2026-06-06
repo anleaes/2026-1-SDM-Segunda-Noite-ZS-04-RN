@@ -13,10 +13,10 @@ export type Funcionario = {
   sobrenome: string;
   email: string;
   cpf: string;
-  registro?: string;
-  funcao?: string;
-  ativo?: boolean;
-  secretarias?: number[];
+  registro: string;
+  funcao: string;
+  ativo: boolean;
+  secretarias: number[];
   user: number;
 };
 

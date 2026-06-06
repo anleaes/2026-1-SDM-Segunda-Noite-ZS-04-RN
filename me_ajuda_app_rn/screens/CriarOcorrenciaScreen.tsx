@@ -32,11 +32,17 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
+    if (!titulo || !endereco || !descricao || !cidadaoId || !servicoId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     const payload = {
       titulo,
       endereco,
-      numero,
-      complemento,
+      numero: numero || null,
+      complemento: complemento || null,
       descricao,
       cidadao: parseInt(cidadaoId),
       servico: parseInt(servicoId),
@@ -57,10 +63,10 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Nova Ocorrência</Text>
 
-      <Text style={styles.label}>Título</Text>
+      <Text style={styles.label}>Título *</Text>
       <TextInput value={titulo} onChangeText={setTitulo} style={styles.input} />
 
-      <Text style={styles.label}>Endereço</Text>
+      <Text style={styles.label}>Endereço *</Text>
       <TextInput value={endereco} onChangeText={setEndereco} style={styles.input} />
 
       <Text style={styles.label}>Número</Text>
@@ -69,13 +75,13 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       <Text style={styles.label}>Complemento</Text>
       <TextInput value={complemento} onChangeText={setComplemento} style={styles.input} />
 
-      <Text style={styles.label}>ID do Cidadão</Text>
+      <Text style={styles.label}>ID do Cidadão *</Text>
       <TextInput value={cidadaoId} onChangeText={setCidadaoId} style={styles.input} keyboardType="numeric" />
 
-      <Text style={styles.label}>ID do Serviço</Text>
+      <Text style={styles.label}>ID do Serviço *</Text>
       <TextInput value={servicoId} onChangeText={setServicoId} style={styles.input} keyboardType="numeric" />
 
-      <Text style={styles.label}>Descrição</Text>
+      <Text style={styles.label}>Descrição *</Text>
       <TextInput
         value={descricao}
         onChangeText={setDescricao}

@@ -8,7 +8,7 @@ type Props = DrawerScreenProps<DrawerParamList, 'EditarCidadao'>;
 
 const EditarCidadaoScreen = ({ route, navigation }: Props) => {
   const { cidadao } = route.params;
-  
+
   const [nome, setNome] = useState(cidadao.nome || '');
   const [sobrenome, setSobrenome] = useState(cidadao.sobrenome || '');
   const [cpf, setCpf] = useState(cidadao.cpf || '');
@@ -38,9 +38,23 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
   const handleSave = async () => {
     setSaving(true);
 
-    const payload: any = { nome, sobrenome, cpf, email, user: parseInt(userId) };
+    if (!nome || !sobrenome || !cpf || !email || !userId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
 
-    Object.assign(payload, { fone, endereco, cep, bairro });
+    const payload: any = {
+      nome,
+      sobrenome,
+      cpf,
+      email,
+      user: parseInt(userId),
+      fone,
+      endereco,
+      cep,
+      bairro
+    };
 
     await fetch(`http://localhost:8000/cidadaos/api/${cidadao.id}/`, {
       method: 'PUT',

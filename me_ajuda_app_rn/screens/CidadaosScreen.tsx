@@ -13,10 +13,10 @@ export type Cidadao = {
   sobrenome: string;
   cpf: string;
   email: string;
-  fone?: string;
-  endereco?: string;
-  cep?: string;
-  bairro?: string;
+  fone: string;
+  endereco: string;
+  cep: string;
+  bairro: string;
   user: number;
 };
 

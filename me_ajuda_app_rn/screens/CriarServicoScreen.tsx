@@ -25,14 +25,21 @@ const CriarServicoScreen = ({ navigation }: Props) => {
 
   const handleSave = async () => {
     setSaving(true);
+
+    if (!nome || !descricao || !nivelPrioridade || !secretariaId) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      setSaving(false);
+      return;
+    }
+
     await fetch('http://localhost:8000/servicos/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         nome, 
         descricao,
-        nivel_prioridade: parseInt(nivelPrioridade) || 0,
-        secretaria: parseInt(secretariaId) || null
+        nivel_prioridade: parseInt(nivelPrioridade),
+        secretaria: parseInt(secretariaId)
       }),
     });
     navigation.navigate('Servicos');  
