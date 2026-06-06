@@ -49,8 +49,8 @@ const ServicosScreen = ({ navigation }: Props) => {
         </View>
       </View>
 
+      <Text style={styles.info}>ID: {item.id}</Text>
       <Text style={styles.description}>{item.descricao}</Text>
-      <Text style={styles.description}>🆔 ID: {item.id}</Text>
 
       <View style={styles.row}>
         <TouchableOpacity
@@ -139,6 +139,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     color: '#856404',
+  },
+  info: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#444',
+    marginBottom: 2,
   },
   description: {
     fontSize: 14,

@@ -52,9 +52,8 @@ const EquipamentosScreen = ({ navigation }: Props) => {
         </View>
       </View>
 
+      <Text style={styles.info}>ID: {item.id}</Text>
       <Text style={styles.description}>{item.descricao}</Text>
-      <Text style={styles.description}>🆔 ID: {item.id}</Text>
-
       <Text style={styles.preco}>Preço/Hora: R$ {Number(item.preco).toFixed(2)}</Text>
 
       <View style={styles.row}>
@@ -144,6 +143,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  info: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#444',
+    marginBottom: 2,
   },
   description: {
     fontSize: 14,

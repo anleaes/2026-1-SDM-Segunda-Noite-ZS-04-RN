@@ -44,9 +44,9 @@ const SecretariasScreen = ({ navigation }: Props) => {
   const renderItem = ({ item }: { item: Secretaria }) => (
     <View style={styles.card}>
       <Text style={styles.name}>{item.nome} ({item.sigla})</Text>
-      <Text style={styles.description}>{item.descricao}</Text>
-      <Text style={styles.description}>🆔 ID: {item.id}</Text>
 
+      <Text style={styles.info}>ID: {item.id}</Text>
+      <Text style={styles.description}>{item.descricao}</Text>
       {item.site ? <Text style={styles.site}>Site: {item.site}</Text> : null}
 
       <View style={styles.row}>
@@ -130,6 +130,12 @@ const styles = StyleSheet.create({
     color: '#4B7BE5',
     marginTop: 4,
     fontStyle: 'italic',
+  },
+  info: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#444',
+    marginBottom: 2,
   },
   editButton: {
     backgroundColor: '#4B7BE5',

@@ -53,10 +53,10 @@ const CidadaosScreen = ({ navigation }: Props) => {
           <Text style={styles.name}>{item.nome} {item.sobrenome}</Text>
         </View>
 
-        <Text style={styles.info}>✉️ {item.email}</Text>
-        <Text style={styles.info}>📄 CPF: {item.cpf}</Text>
-        <Text style={styles.info}>🆔 ID Cidadão: {item.id}</Text>
-        <Text style={styles.info}>🆔 ID User: {item.user}</Text>
+        <Text style={styles.info}>ID Cidadão: {item.id}</Text>
+        <Text style={styles.info}>ID User: {item.user}</Text>
+        <Text style={styles.info}>E-mail: {item.email}</Text>
+        <Text style={styles.info}>CPF: {item.cpf}</Text>
 
         <View style={styles.row}>
           <TouchableOpacity
@@ -150,14 +150,9 @@ const styles = StyleSheet.create({
   },
   info: {
     fontSize: 14,
+    fontWeight: '500',
     color: '#444',
     marginBottom: 2,
-  },
-  subInfo: {
-    fontSize: 13,
-    color: '#666',
-    marginTop: 6,
-    fontStyle: 'italic',
   },
   editButton: {
     backgroundColor: '#4B7BE5',

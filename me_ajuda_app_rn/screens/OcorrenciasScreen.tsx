@@ -61,9 +61,9 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
         <Text style={styles.status}>{getStatusLabel(item.status)}</Text>
       </View>
 
-      <Text style={styles.endereco}>{item.endereco}, {item.numero}</Text>
-      <Text style={styles.descricao} numberOfLines={2}>{item.descricao}</Text>
-      <Text style={styles.descricao}>🆔 ID: {item.id}</Text>
+      <Text style={styles.info}>ID: {item.id}</Text>
+      <Text style={styles.info}>{item.endereco}, {item.numero}</Text>
+      <Text style={styles.description} numberOfLines={2}>{item.descricao}</Text>
 
       <View style={styles.row}>
         <TouchableOpacity
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   card: {
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f0f4ff',
     padding: 16,
     borderRadius: 10,
     marginBottom: 12,
@@ -130,8 +130,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
-    borderLeftWidth: 4,
-    borderLeftColor: '#4B7BE5',
   },
   headerCard: {
     flexDirection: 'row',
@@ -155,15 +153,15 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: 'hidden',
   },
-  endereco: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#555',
-    marginBottom: 4,
-  },
-  descricao: {
+  description: {
     fontSize: 14,
     color: '#666',
+  },
+  info: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#444',
+    marginBottom: 2,
   },
   row: {
     flexDirection: 'row',
