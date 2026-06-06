@@ -39,7 +39,7 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
       return;
     }
 
-    await fetch('http://localhost:8000/funcionarios/api/', {
+    const res = await fetch('http://localhost:8000/funcionarios/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -54,6 +54,13 @@ const CriarFuncionarioScreen = ({ navigation }: Props) => {
         secretarias: secretarias.split(',').map(s => parseInt(s.trim()))
       }),
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
 
     navigation.navigate('Funcionarios');
     setSaving(false);

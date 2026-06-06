@@ -38,7 +38,7 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
       return;
     }
 
-    await fetch('http://localhost:8000/intervencoes/api/', {
+    const res = await fetch('http://localhost:8000/intervencoes/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -50,6 +50,14 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
         funcionario: funcionarioId
       }),
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+    
     navigation.navigate('Intervencoes');
     setSaving(false);
   };

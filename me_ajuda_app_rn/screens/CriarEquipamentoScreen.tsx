@@ -32,31 +32,39 @@ const CriarEquipamentoScreen = ({ navigation }: Props) => {
       return;
     }
 
-    await fetch('http://localhost:8000/equipamentos/api/', {
+    const res = await fetch('http://localhost:8000/equipamentos/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        nome, 
-        descricao, 
+      body: JSON.stringify({
+        nome,
+        descricao,
         preco: parseFloat(preco),
-        disponivel 
+        disponivel
       }),
     });
-    navigation.navigate('Equipamentos');  
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+
+    navigation.navigate('Equipamentos');
     setSaving(false);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Novo Equipamento</Text>
-      
+
       <Text style={styles.label}>Nome *</Text>
       <TextInput
         value={nome}
         onChangeText={setNome}
         style={styles.input}
       />
-      
+
       <Text style={styles.label}>Descrição *</Text>
       <TextInput
         value={descricao}
@@ -94,21 +102,21 @@ const CriarEquipamentoScreen = ({ navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 16, 
-    backgroundColor: '#fff' 
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff'
   },
-  title: { 
-    fontSize: 20, 
-    fontWeight: 'bold', 
-    marginBottom: 12, 
-    alignSelf: 'center' 
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    alignSelf: 'center'
   },
-  label: { 
-    fontWeight: '600', 
-    marginTop: 12, 
-    marginBottom: 4 
+  label: {
+    fontWeight: '600',
+    marginTop: 12,
+    marginBottom: 4
   },
   input: {
     borderWidth: 1,

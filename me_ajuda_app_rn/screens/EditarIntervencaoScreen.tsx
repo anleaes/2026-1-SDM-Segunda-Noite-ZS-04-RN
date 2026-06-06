@@ -51,6 +51,14 @@ const EditarIntervencaoScreen = ({ route, navigation }: Props) => {
         }),
       }
     );
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+
     navigation.navigate('Intervencoes');
     setSaving(false);
   };

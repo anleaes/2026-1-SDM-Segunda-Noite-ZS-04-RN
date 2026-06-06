@@ -7,7 +7,7 @@ type Props = DrawerScreenProps<DrawerParamList, 'EditarSecretaria'>;
 
 const EditarSecretariaScreen = ({ route, navigation }: Props) => {
   const { secretaria } = route.params;
-  
+
   const [nome, setNome] = useState(secretaria.nome);
   const [sigla, setSigla] = useState(secretaria.sigla);
   const [descricao, setDescricao] = useState(secretaria.descricao);
@@ -19,7 +19,7 @@ const EditarSecretariaScreen = ({ route, navigation }: Props) => {
     setSigla(secretaria.sigla);
     setDescricao(secretaria.descricao);
     setSite(secretaria.site);
-  }, [secretaria]);  
+  }, [secretaria]);
 
   const handleSave = async () => {
     setSaving(true);
@@ -38,8 +38,16 @@ const EditarSecretariaScreen = ({ route, navigation }: Props) => {
         body: JSON.stringify({ nome, sigla, descricao, site }),
       }
     );
-    navigation.navigate('Secretarias');        
-    setSaving(false);  
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+
+    navigation.navigate('Secretarias');
+    setSaving(false);
   };
 
   return (
@@ -84,22 +92,22 @@ const EditarSecretariaScreen = ({ route, navigation }: Props) => {
         )}
       </View>
       <Button title="Voltar" onPress={() => navigation.navigate('Secretarias')} color="#6c757d" />
-      
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 16, 
-    backgroundColor: '#fff' 
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff'
   },
-  label: { 
-    fontWeight: 'bold', 
-    marginTop: 12, 
-    marginBottom: 4 
+  label: {
+    fontWeight: 'bold',
+    marginTop: 12,
+    marginBottom: 4
   },
   input: {
     borderWidth: 1,

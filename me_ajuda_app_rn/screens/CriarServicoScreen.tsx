@@ -32,7 +32,7 @@ const CriarServicoScreen = ({ navigation }: Props) => {
       return;
     }
 
-    await fetch('http://localhost:8000/servicos/api/', {
+    const res = await fetch('http://localhost:8000/servicos/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
@@ -42,7 +42,15 @@ const CriarServicoScreen = ({ navigation }: Props) => {
         secretaria: parseInt(secretariaId)
       }),
     });
-    navigation.navigate('Servicos');  
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+
+    navigation.navigate('Servicos');
     setSaving(false);
   };
 
