@@ -38,6 +38,13 @@ const SecretariasScreen = ({ navigation }: Props) => {
     const res = await fetch(`http://localhost:8000/secretarias/api/${id}/`, {
       method: 'DELETE',
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      return;
+    }
+
     setSecretarias(prev => prev.filter(s => s.id !== id));
   };
 
