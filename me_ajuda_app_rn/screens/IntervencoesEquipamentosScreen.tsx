@@ -38,6 +38,13 @@ const IntervencoesEquipamentosScreen = ({ navigation }: Props) => {
     const res = await fetch(`http://localhost:8000/equipamentos_intervencao/api/${id}/`, {
       method: 'DELETE',
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      return;
+    }
+
     setIntervencoesEquipamentos(prev => prev.filter(i => i.id !== id));
   };
 

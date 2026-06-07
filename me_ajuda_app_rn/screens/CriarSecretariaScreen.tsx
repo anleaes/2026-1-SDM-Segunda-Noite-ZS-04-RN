@@ -31,12 +31,20 @@ const CriarSecretariaScreen = ({ navigation }: Props) => {
       setSaving(false);
       return;
     }
-    
-    await fetch('http://localhost:8000/secretarias/api/', {
+
+    const res = await fetch('http://localhost:8000/secretarias/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome, sigla, descricao, site }),
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+    
     navigation.navigate('Secretarias');
     setSaving(false);
   };

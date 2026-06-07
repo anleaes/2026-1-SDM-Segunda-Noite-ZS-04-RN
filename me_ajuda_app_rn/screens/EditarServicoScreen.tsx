@@ -7,7 +7,7 @@ type Props = DrawerScreenProps<DrawerParamList, 'EditarServico'>;
 
 const EditarServicoScreen = ({ route, navigation }: Props) => {
   const { servico } = route.params;
-  
+
   const [nome, setNome] = useState(servico.nome);
   const [descricao, setDescricao] = useState(servico.descricao);
   const [nivelPrioridade, setNivelPrioridade] = useState(String(servico.nivel_prioridade));
@@ -19,7 +19,7 @@ const EditarServicoScreen = ({ route, navigation }: Props) => {
     setDescricao(servico.descricao);
     setNivelPrioridade(String(servico.nivel_prioridade));
     setSecretariaId(String(servico.secretaria));
-  }, [servico]);  
+  }, [servico]);
 
   const handleSave = async () => {
     setSaving(true);
@@ -35,16 +35,24 @@ const EditarServicoScreen = ({ route, navigation }: Props) => {
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          nome, 
-          descricao, 
+        body: JSON.stringify({
+          nome,
+          descricao,
           nivel_prioridade: parseInt(nivelPrioridade),
           secretaria: parseInt(secretariaId)
         }),
       }
     );
-    navigation.navigate('Servicos');        
-    setSaving(false);  
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+    
+    navigation.navigate('Servicos');
+    setSaving(false);
   };
 
   return (
@@ -71,7 +79,7 @@ const EditarServicoScreen = ({ route, navigation }: Props) => {
         style={styles.input}
         keyboardType="numeric"
       />
-      
+
       <Text style={styles.label}>Descrição</Text>
       <TextInput
         value={descricao}
@@ -88,22 +96,22 @@ const EditarServicoScreen = ({ route, navigation }: Props) => {
         )}
       </View>
       <Button title="Voltar" onPress={() => navigation.navigate('Servicos')} color="#6c757d" />
-      
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 16, 
-    backgroundColor: '#fff' 
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff'
   },
-  label: { 
-    fontWeight: 'bold', 
-    marginTop: 12, 
-    marginBottom: 4 
+  label: {
+    fontWeight: 'bold',
+    marginTop: 12,
+    marginBottom: 4
   },
   input: {
     borderWidth: 1,

@@ -85,7 +85,7 @@ const CriarIntervencaoEquipamentoScreen = ({ navigation }: Props) => {
     }
 
     for (const item of alocacao) {
-      await fetch('http://localhost:8000/equipamentos_intervencao/api/', {
+      const res = await fetch('http://localhost:8000/equipamentos_intervencao/api/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -95,6 +95,13 @@ const CriarIntervencaoEquipamentoScreen = ({ navigation }: Props) => {
           custo_total: item.custo_total
         }),
       });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert('Erro de API: ' + JSON.stringify(errorData));
+        setSaving(false);
+        return;
+      }
     }
 
     navigation.navigate('IntervencoesEquipamentos');

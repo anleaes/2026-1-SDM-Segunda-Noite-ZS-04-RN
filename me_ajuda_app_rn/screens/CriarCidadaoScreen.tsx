@@ -38,7 +38,7 @@ const CriarCidadaoScreen = ({ navigation }: Props) => {
       return;
     }
 
-    await fetch('http://localhost:8000/cidadaos/api/', {
+    const res = await fetch('http://localhost:8000/cidadaos/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -53,6 +53,13 @@ const CriarCidadaoScreen = ({ navigation }: Props) => {
         bairro
       }),
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
 
     navigation.navigate('Cidadaos');
     setSaving(false);

@@ -64,6 +64,13 @@ const EditarOcorrenciaScreen = ({ route, navigation }: Props) => {
       }
     );
 
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+
     navigation.navigate('Ocorrencias');
     setSaving(false);
   };

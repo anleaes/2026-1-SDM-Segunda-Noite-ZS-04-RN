@@ -34,9 +34,16 @@ const ServicosScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://localhost:8000/servicos/api/${id}/`, {
+    const res = await fetch(`http://localhost:8000/servicos/api/${id}/`, {
       method: 'DELETE',
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      return;
+    }
+
     setServicos(prev => prev.filter(o => o.id !== id));
   };
 

@@ -40,9 +40,16 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://localhost:8000/ocorrencias/api/${id}/`, {
+    const res = await fetch(`http://localhost:8000/ocorrencias/api/${id}/`, {
       method: 'DELETE',
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      return;
+    }
+    
     setOcorrencias(prev => prev.filter(o => o.id !== id));
   };
 

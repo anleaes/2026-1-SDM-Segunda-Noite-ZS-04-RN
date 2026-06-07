@@ -7,10 +7,10 @@ type Props = DrawerScreenProps<DrawerParamList, 'EditarEquipamento'>;
 
 const EditarEquipamentoScreen = ({ route, navigation }: Props) => {
   const { equipamento } = route.params;
-  
+
   const [nome, setNome] = useState(equipamento.nome);
   const [descricao, setDescricao] = useState(equipamento.descricao);
-  const [preco, setPreco] = useState(String(equipamento.preco)); 
+  const [preco, setPreco] = useState(String(equipamento.preco));
   const [disponivel, setDisponivel] = useState(equipamento.disponivel);
   const [saving, setSaving] = useState(false);
 
@@ -19,7 +19,7 @@ const EditarEquipamentoScreen = ({ route, navigation }: Props) => {
     setDescricao(equipamento.descricao);
     setPreco(String(equipamento.preco));
     setDisponivel(equipamento.disponivel);
-  }, [equipamento]);  
+  }, [equipamento]);
 
   const handleSave = async () => {
     setSaving(true);
@@ -35,16 +35,24 @@ const EditarEquipamentoScreen = ({ route, navigation }: Props) => {
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          nome, 
-          descricao, 
+        body: JSON.stringify({
+          nome,
+          descricao,
           preco: parseFloat(preco),
-          disponivel 
+          disponivel
         }),
       }
     );
-    navigation.navigate('Equipamentos');        
-    setSaving(false);  
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+
+    navigation.navigate('Equipamentos');
+    setSaving(false);
   };
 
   return (
@@ -55,7 +63,7 @@ const EditarEquipamentoScreen = ({ route, navigation }: Props) => {
         onChangeText={setNome}
         style={styles.input}
       />
-      
+
       <Text style={styles.label}>Descrição</Text>
       <TextInput
         value={descricao}
@@ -94,15 +102,15 @@ const EditarEquipamentoScreen = ({ route, navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 16, 
-    backgroundColor: '#fff' 
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff'
   },
-  label: { 
-    fontWeight: 'bold', 
-    marginTop: 12, 
-    marginBottom: 4 
+  label: {
+    fontWeight: 'bold',
+    marginTop: 12,
+    marginBottom: 4
   },
   input: {
     borderWidth: 1,

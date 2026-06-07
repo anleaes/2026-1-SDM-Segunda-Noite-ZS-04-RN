@@ -44,7 +44,7 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
       return;
     }
 
-    await fetch(`http://localhost:8000/cidadaos/api/${cidadao.id}/`, {
+    const res = await fetch(`http://localhost:8000/cidadaos/api/${cidadao.id}/`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -59,6 +59,13 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
         bairro
       }),
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
 
     navigation.navigate('Cidadaos');
     setSaving(false);
