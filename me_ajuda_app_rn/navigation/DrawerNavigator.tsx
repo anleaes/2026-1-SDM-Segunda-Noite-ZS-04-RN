@@ -27,6 +27,7 @@ import EditarFuncionarioScreen from '../screens/EditarFuncionarioScreen';
 import IntervencoesEquipamentosScreen, { IntervencaoEquipamento } from '../screens/IntervencoesEquipamentosScreen';
 import CriarIntervencaoEquipamentoScreen from '../screens/CriarIntervencaoEquipamentoScreen';
 import EditarIntervencaoEquipamentoScreen from '../screens/EditarIntervencaoEquipamentoScreen';
+import VerProtocoloScreen, { Protocolo } from '../screens/VerProtocoloScreen';
 
 export type DrawerParamList = {
   Home: undefined;
@@ -54,6 +55,7 @@ export type DrawerParamList = {
   IntervencoesEquipamentos: undefined;
   CriarIntervencaoEquipamento: undefined;
   EditarIntervencaoEquipamento: { intervencaoEquipamento: IntervencaoEquipamento };
+  VerProtocolo: { protocolo: Protocolo }
 };
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -165,6 +167,11 @@ const DrawerNavigator = () => {
         name="EditarOcorrencia"
         component={EditarOcorrenciaScreen}
         options={{ drawerItemStyle: { display: 'none' }, title: 'Editar Ocorrência' }}
+      />
+      <Drawer.Screen
+        name="VerProtocolo"
+        component={VerProtocoloScreen}
+        options={{ drawerItemStyle: { display: 'none' }, title: 'Visualizar Protocolo' }}
       />
       <Drawer.Screen
         name="Equipamentos"

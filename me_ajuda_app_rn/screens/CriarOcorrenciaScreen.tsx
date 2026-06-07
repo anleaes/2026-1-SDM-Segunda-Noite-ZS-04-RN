@@ -38,7 +38,7 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       return;
     }
 
-    const res = await fetch('http://localhost:8000/ocorrencias/api/', {
+    const resOcorrencia = await fetch('http://localhost:8000/ocorrencias/api/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -53,9 +53,41 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
       }),
     });
 
-    if (!res.ok) {
-      const errorData = await res.json();
-      alert('Erro de API: ' + JSON.stringify(errorData));
+    if (!resOcorrencia.ok) {
+      const errorData = await resOcorrencia.json();
+      alert('Erro de API ao criar ocorrência: ' + JSON.stringify(errorData));
+      setSaving(false);
+      return;
+    }
+
+    const ocorrenciaCriada = await resOcorrencia.json();
+    const ocorrenciaId = ocorrenciaCriada.id;
+
+    const agora = new Date();
+    const ano = agora.getFullYear();
+    const mes = String(agora.getMonth() + 1).padStart(2, '0');
+    const dia = String(agora.getDate()).padStart(2, '0');
+
+    const numeroProtocolo = `${ano}${mes}${dia}-${String(ocorrenciaId).padStart(6, '0')}`;
+
+    const prazo = new Date(agora);
+    prazo.setDate(prazo.getDate() + 15);
+    const prazoFormatado = prazo.toISOString().split('T')[0];
+
+    const resProtocolo = await fetch('http://localhost:8000/protocolos/api/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ocorrencia: ocorrenciaId,
+        protocolo_numero: numeroProtocolo,
+        gerado_em: agora.toISOString(),
+        prazo: prazoFormatado
+      }),
+    });
+
+    if (!resProtocolo.ok) {
+      const errorData = await resProtocolo.json();
+      alert('Erro de API ao gerar protocolo: ' + JSON.stringify(errorData));
       setSaving(false);
       return;
     }
@@ -94,16 +126,13 @@ const CriarOcorrenciaScreen = ({ navigation }: Props) => {
         multiline
       />
 
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonSpacer}>
         {saving
           ? <ActivityIndicator size="large" color="#4B7BE5" />
           : <Button title="Salvar" onPress={handleSave} color="#4B7BE5" />
         }
       </View>
-
-      <View style={styles.buttonContainer}>
-        <Button title="Voltar" onPress={() => navigation.navigate('Ocorrencias')} color="#6c757d" />
-      </View>
+      <Button title="Voltar" onPress={() => navigation.navigate('Ocorrencias')} color="#6c757d" />
 
       <View style={{ height: 40 }} />
     </ScrollView>
@@ -134,8 +163,9 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#f9f9f9',
   },
-  buttonContainer: {
+  buttonSpacer: {
     marginTop: 16,
+    marginBottom: 12,
   }
 });
 
