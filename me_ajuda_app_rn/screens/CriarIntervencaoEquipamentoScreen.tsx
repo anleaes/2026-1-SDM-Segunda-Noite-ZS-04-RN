@@ -154,16 +154,18 @@ const CriarIntervencaoEquipamentoScreen = ({ navigation }: Props) => {
         ) : (
           alocacao.map((item) => (
             <View key={item.id_temporario} style={styles.cartItem}>
-              <View>
+              <View style={{ flex: 1 }}>
                 <Text style={styles.cartText}>Equip. ID: {item.equipamento}</Text>
                 <Text style={styles.cartSubText}>{item.horas_usado}h | R$ {item.custo_total}</Text>
               </View>
-              <TouchableOpacity style={{ marginRight: -900 }} onPress={() => removerDeAlocacao(item.id_temporario)}>
-                <Text style={styles.deleteText}>Remover</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => editarDeAlocacao(item.id_temporario)}>
-                <Text style={styles.editText}>Editar</Text>
-              </TouchableOpacity>
+              <View style={styles.actionButtons}>
+                <TouchableOpacity onPress={() => removerDeAlocacao(item.id_temporario)} style={{ marginRight: 12 }}>
+                  <Text style={styles.deleteText}>Remover</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => editarDeAlocacao(item.id_temporario)}>
+                  <Text style={styles.editText}>Editar</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           ))
         )}
@@ -254,10 +256,13 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 13
   },
+  actionButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   deleteText: {
     color: '#E54848',
     fontWeight: 'bold',
-    marginLeft: 100
   },
   editText: {
     color: '#4B7BE5',
