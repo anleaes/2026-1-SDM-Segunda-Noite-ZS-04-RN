@@ -139,17 +139,14 @@ const EditarOcorrenciaScreen = ({ route, navigation }: Props) => {
         keyboardType="numeric"
       />
 
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonSpacer}>
         {saving ? (
           <ActivityIndicator size="large" color="#4B7BE5" />
         ) : (
           <Button title="Salvar" onPress={handleSave} color="#4B7BE5" />
         )}
       </View>
-
-      <View style={styles.buttonContainer}>
-        <Button title="Voltar" onPress={() => navigation.navigate('Ocorrencias')} color="#6c757d" />
-      </View>
+      <Button title="Voltar" onPress={() => navigation.navigate('Ocorrencias')} color="#6c757d" />
 
       <View style={{ height: 40 }} />
     </ScrollView>
@@ -174,8 +171,9 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#f9f9f9',
   },
-  buttonContainer: {
+  buttonSpacer: {
     marginTop: 16,
+    marginBottom: 12,
   }
 });
 

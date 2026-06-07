@@ -4,6 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DrawerParamList } from '../navigation/DrawerNavigator';
+import { Protocolo } from './VerProtocoloScreen';
 
 type Props = DrawerScreenProps<DrawerParamList, 'Ocorrencias'>;
 
@@ -49,8 +50,28 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
       alert('Erro de API: ' + JSON.stringify(errorData));
       return;
     }
-    
+
     setOcorrencias(prev => prev.filter(o => o.id !== id));
+  };
+
+  const handleViewProtocol = async (id: number) => {
+    const res = await fetch(`http://localhost:8000/protocolos/api/?ocorrencia=${id}`);
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      return;
+    }
+
+    const data = await res.json() as Protocolo[];
+
+    if (data && data.length > 0) {
+      const protocolo = data[0];
+
+      navigation.navigate('VerProtocolo', { protocolo: protocolo });
+    } else {
+      alert('Nenhum protocolo encontrado para esta ocorrência.');
+    }
   };
 
   const getStatusLabel = (status: string) => {
@@ -90,6 +111,13 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
           onPress={() => handleDelete(item.id)}
         >
           <Text style={styles.buttonText}>Excluir</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.viewProtocolButton}
+          onPress={() => handleViewProtocol(item.id)}
+        >
+          <Text style={styles.buttonText}>Visualizar Protocolo</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -189,6 +217,13 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: '#E54848',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+    marginRight: 8,
+  },
+  viewProtocolButton: {
+    backgroundColor: '#28a745',
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 6,
