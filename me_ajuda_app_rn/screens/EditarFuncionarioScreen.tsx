@@ -110,7 +110,6 @@ const EditarFuncionarioScreen = ({ route, navigation }: Props) => {
         <Picker selectedValue={funcao} onValueChange={setFuncao}>
           <Picker.Item label="Técnico (TEC)" value="TEC" />
           <Picker.Item label="Gestor (GES)" value="GES" />
-          <Picker.Item label="Analista (ANA)" value="ANA" />
         </Picker>
       </View>
 
