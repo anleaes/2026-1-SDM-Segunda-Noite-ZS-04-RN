@@ -206,7 +206,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="IntervencoesEquipamentos"
         component={IntervencoesEquipamentosScreen}
-        options={{ drawerIcon: ({ color, size }) => <Ionicons name="construct-outline" size={size} color={color} />, title: 'Alocação de Equip.' }}
+        options={{ drawerIcon: ({ color, size }) => <Ionicons name="construct-outline" size={size} color={color} />, title: 'Alocações de Equip.' }}
       />
       <Drawer.Screen
         name="CriarIntervencaoEquipamento"
