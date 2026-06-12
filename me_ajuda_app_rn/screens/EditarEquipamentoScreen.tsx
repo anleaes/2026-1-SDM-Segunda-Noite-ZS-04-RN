@@ -96,7 +96,7 @@ const EditarEquipamentoScreen = ({ route, navigation }: Props) => {
           <Button title="Salvar" onPress={handleSave} color="#4B7BE5" />
         )}
       </View>
-      <Button title="Voltar" onPress={() => navigation.navigate('Equipamentos')} color="#6c757d" />
+      <Button title="Cancelar" onPress={() => navigation.navigate('Equipamentos')} color="#6c757d" />
     </View>
   );
 };

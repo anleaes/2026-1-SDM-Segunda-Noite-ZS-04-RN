@@ -127,7 +127,7 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
           <Button title="Salvar" onPress={handleSave} color="#4B7BE5" />
         )}
       </View>
-      <Button title="Voltar" onPress={() => navigation.navigate('Cidadaos')} color="#6c757d" />
+      <Button title="Cancelar" onPress={() => navigation.navigate('Cidadaos')} color="#6c757d" />
 
       <View style={{ height: 40 }} />
     </ScrollView>

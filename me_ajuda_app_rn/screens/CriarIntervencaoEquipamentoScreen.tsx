@@ -175,10 +175,10 @@ const CriarIntervencaoEquipamentoScreen = ({ navigation }: Props) => {
         {saving ? (
           <ActivityIndicator size="large" color="#4B7BE5" />
         ) : (
-          <Button title="Salvar Alocação de Equipamentos" onPress={handleSave} color="#4B7BE5" />
+          <Button title="Salvar" onPress={handleSave} color="#4B7BE5" />
         )}
         <View style={{ marginTop: 12 }}>
-          <Button title="Voltar" onPress={() => navigation.navigate('IntervencoesEquipamentos')} color="#6c757d" />
+          <Button title="Cancelar" onPress={() => navigation.navigate('IntervencoesEquipamentos')} color="#6c757d" />
         </View>
       </View>
 
