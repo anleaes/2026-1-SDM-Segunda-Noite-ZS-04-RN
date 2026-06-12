@@ -44,7 +44,7 @@ const EquipamentosScreen = ({ navigation }: Props) => {
       alert('Erro de API: ' + JSON.stringify(errorData));
       return;
     }
-    
+
     setEquipamentos(prev => prev.filter(e => e.id !== id));
   };
 
@@ -100,6 +100,8 @@ const EquipamentosScreen = ({ navigation }: Props) => {
       >
         <Ionicons name="add" size={28} color="#fff" />
       </TouchableOpacity>
+
+      <View style={{ height: 40 }} />
     </View>
   );
 };

@@ -48,7 +48,7 @@ const CidadaosScreen = ({ navigation }: Props) => {
       alert('Erro de API: ' + JSON.stringify(errorData));
       return;
     }
-    
+
     setCidadaos(prev => prev.filter(u => u.id !== id));
   };
 
@@ -103,6 +103,8 @@ const CidadaosScreen = ({ navigation }: Props) => {
       >
         <Ionicons name="add" size={28} color="#fff" />
       </TouchableOpacity>
+
+      <View style={{ height: 40 }} />
     </View>
   );
 };
