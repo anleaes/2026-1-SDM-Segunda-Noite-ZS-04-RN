@@ -4,6 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DrawerParamList } from '../navigation/DrawerNavigator';
+import { Protocolo } from './VerProtocoloScreen';
 
 type Props = DrawerScreenProps<DrawerParamList, 'Ocorrencias'>;
 
@@ -11,10 +12,14 @@ export type Ocorrencia = {
   id: number;
   titulo: string;
   endereco: string;
-  numero: string;
+  numero?: string;
   descricao: string;
   status: 'ABE' | 'AND' | 'FEC';
   criado_em: string;
+  fechado_em?: string;
+  complemento?: string;
+  cidadao: number;
+  servico: number;
 };
 
 const OcorrenciasScreen = ({ navigation }: Props) => {
@@ -23,7 +28,7 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
 
   const fetchOcorrencias = async () => {
     setLoading(true);
-    const response = await fetch('http:/localhost:8000/ocorrencias/api/');
+    const response = await fetch('http://localhost:8000/ocorrencias/api/');
     const data = await response.json();
     setOcorrencias(data);
     setLoading(false);
@@ -36,10 +41,37 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
   );
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://localhost:8000/ocorrencias/api/${id}/`, {
+    const res = await fetch(`http://localhost:8000/ocorrencias/api/${id}/`, {
       method: 'DELETE',
     });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      return;
+    }
+
     setOcorrencias(prev => prev.filter(o => o.id !== id));
+  };
+
+  const handleViewProtocol = async (id: number) => {
+    const res = await fetch(`http://localhost:8000/protocolos/api/?ocorrencia=${id}`);
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert('Erro de API: ' + JSON.stringify(errorData));
+      return;
+    }
+
+    const data = await res.json() as Protocolo[];
+
+    if (data && data.length > 0) {
+      const protocolo = data[0];
+
+      navigation.navigate('VerProtocolo', { protocolo: protocolo });
+    } else {
+      alert('Nenhum protocolo encontrado para esta ocorrência.');
+    }
   };
 
   const getStatusLabel = (status: string) => {
@@ -57,10 +89,15 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
         <Text style={styles.titulo}>{item.titulo}</Text>
         <Text style={styles.status}>{getStatusLabel(item.status)}</Text>
       </View>
-      
-      <Text style={styles.endereco}>{item.endereco}, {item.numero}</Text>
-      <Text style={styles.descricao} numberOfLines={2}>{item.descricao}</Text>
-      
+
+      <Text style={styles.info}>Criada em: {item.criado_em.split('T')[0].split('-').reverse().join('/')}</Text>
+      {item.fechado_em && (
+        <Text style={styles.info}>Fechada em: {item.fechado_em.split('T')[0].split('-').reverse().join('/')}</Text>
+      )}
+      <Text style={styles.info}>ID: {item.id}</Text>
+      <Text style={styles.info}>{item.endereco}, {item.numero}</Text>
+      <Text style={styles.description} numberOfLines={2}>{item.descricao}</Text>
+
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.editButton}
@@ -68,18 +105,25 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
         >
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => handleDelete(item.id)}
         >
           <Text style={styles.buttonText}>Excluir</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.viewProtocolButton}
+          onPress={() => handleViewProtocol(item.id)}
+        >
+          <Text style={styles.buttonText}>Visualizar Protocolo</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 
-  return ( 
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>Ocorrências</Text>
       {loading ? (
@@ -98,6 +142,8 @@ const OcorrenciasScreen = ({ navigation }: Props) => {
       >
         <Ionicons name="add" size={28} color="#fff" />
       </TouchableOpacity>
+
+      <View style={{ height: 40 }} />
     </View>
   );
 };
@@ -117,7 +163,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   card: {
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f0f4ff',
     padding: 16,
     borderRadius: 10,
     marginBottom: 12,
@@ -126,8 +172,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
-    borderLeftWidth: 4,
-    borderLeftColor: '#4B7BE5',
   },
   headerCard: {
     flexDirection: 'row',
@@ -151,19 +195,19 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: 'hidden',
   },
-  endereco: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#555',
-    marginBottom: 4,
-  },
-  descricao: {
+  description: {
     fontSize: 14,
     color: '#666',
   },
-  row: { 
-    flexDirection: 'row', 
-    marginTop: 12, 
+  info: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#444',
+    marginBottom: 2,
+  },
+  row: {
+    flexDirection: 'row',
+    marginTop: 12,
     justifyContent: 'flex-end',
   },
   editButton: {
@@ -178,10 +222,17 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 6,
+    marginRight: 8,
   },
-  buttonText: { 
-    color: '#fff', 
-    fontWeight: '500' 
+  viewProtocolButton: {
+    backgroundColor: '#28a745',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: '500'
   },
   fab: {
     position: 'absolute',
