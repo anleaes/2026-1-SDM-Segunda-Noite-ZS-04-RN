@@ -98,7 +98,7 @@ const EditarIntervencaoEquipamentoScreen = ({ route, navigation }: Props) => {
       </View>
 
       <View style={styles.buttonSpacer}>
-        <Button title="Voltar" onPress={() => navigation.navigate('IntervencoesEquipamentos')} color="#6c757d" />
+        <Button title="Cancelar" onPress={() => navigation.navigate('IntervencoesEquipamentos')} color="#6c757d" />
       </View>
 
       <View style={{ height: 40 }} />
