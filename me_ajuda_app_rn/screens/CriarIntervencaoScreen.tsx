@@ -29,6 +29,20 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
 
   const dataFormatada = dataExec.split('/').reverse().join('-');
 
+  const handleDateChange = (text: string) => {
+    let formatted = text.replace(/\D/g, '');
+
+    if (formatted.length > 2) {
+      formatted = formatted.replace(/^(\d{2})(\d)/, '$1/$2');
+    }
+
+    if (formatted.length > 5) {
+      formatted = formatted.replace(/^(\d{2})\/(\d{2})(\d)/, '$1/$2/$3');
+    }
+
+    setDataExec(formatted.substring(0, 10));
+  };
+
   const handleSave = async () => {
     setSaving(true);
 
@@ -57,7 +71,7 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
       setSaving(false);
       return;
     }
-    
+
     navigation.navigate('Intervencoes');
     setSaving(false);
   };
@@ -76,7 +90,7 @@ const CriarIntervencaoScreen = ({ navigation }: Props) => {
       <Text style={styles.label}>Data de Execução (DD/MM/AAAA) *</Text>
       <TextInput
         value={dataExec}
-        onChangeText={setDataExec}
+        onChangeText={handleDateChange}
         style={styles.input}
         placeholder="Ex: 31/05/2026"
       />
