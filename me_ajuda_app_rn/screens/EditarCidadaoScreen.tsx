@@ -27,6 +27,7 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
     setNome(cidadao.nome || '');
     setSobrenome(cidadao.sobrenome || '');
     setCpf(cidadao.cpf || '');
+    handleCpfChange(cidadao.cpf);
     setEmail(cidadao.email || '');
     setFone(cidadao.fone || '');
     setEndereco(cidadao.endereco || '');
@@ -50,7 +51,7 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
       body: JSON.stringify({
         nome,
         sobrenome,
-        cpf,
+        cpf: cpfFormatado,
         email,
         user: parseInt(userId),
         fone,
@@ -71,6 +72,22 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
     setSaving(false);
   };
 
+  const handleCpfChange = (text: string) => {
+    let formatted = text.replace(/\D/g, '');
+
+    if (formatted.length > 11) {
+      formatted = formatted.substring(0, 11);
+    }
+
+    formatted = formatted.replace(/(\d{3})(\d)/, '$1.$2');
+    formatted = formatted.replace(/(\d{3})(\d)/, '$1.$2');
+    formatted = formatted.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+    setCpf(formatted);
+  };
+
+  const cpfFormatado = cpf.replace(/\D/g, '').substring(0, 11);
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.sectionTitle}>Dados Básicos</Text>
@@ -82,7 +99,7 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
       <TextInput value={sobrenome} onChangeText={setSobrenome} style={styles.input} />
 
       <Text style={styles.label}>CPF</Text>
-      <TextInput value={cpf} onChangeText={setCpf} style={styles.input} keyboardType="numeric" />
+      <TextInput value={cpf} onChangeText={handleCpfChange} style={styles.input} keyboardType="numeric" />
 
       <Text style={styles.label}>E-mail</Text>
       <TextInput value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
