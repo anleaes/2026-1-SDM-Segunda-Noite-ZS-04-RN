@@ -32,6 +32,7 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
     setFone(cidadao.fone || '');
     setEndereco(cidadao.endereco || '');
     setCep(cidadao.cep || '');
+    handleCepChange(cidadao.cep);
     setBairro(cidadao.bairro || '');
     setUserId(String(cidadao.user));
   }, [cidadao]);
@@ -56,7 +57,7 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
         user: parseInt(userId),
         fone,
         endereco,
-        cep,
+        cep: cepFormatado,
         bairro
       }),
     });
@@ -71,6 +72,16 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
     navigation.navigate('Cidadaos');
     setSaving(false);
   };
+
+  const handleCepChange = (text: string) => {
+    let formatted = text.replace(/\D/g, '').substring(0, 8);
+
+    formatted = formatted.replace(/^(\d{5})(\d)/, '$1-$2');
+
+    setCep(formatted);
+  };
+
+  const cepFormatado = cep.replace(/\D/g, '');
 
   const handleCpfChange = (text: string) => {
     let formatted = text.replace(/\D/g, '');
@@ -115,7 +126,7 @@ const EditarCidadaoScreen = ({ route, navigation }: Props) => {
       <TextInput value={endereco} onChangeText={setEndereco} style={styles.input} />
 
       <Text style={styles.label}>CEP</Text>
-      <TextInput value={cep} onChangeText={setCep} style={styles.input} keyboardType="numeric" />
+      <TextInput value={cep} onChangeText={handleCepChange} style={styles.input} keyboardType="numeric" />
 
       <Text style={styles.label}>Bairro</Text>
       <TextInput value={bairro} onChangeText={setBairro} style={styles.input} />
