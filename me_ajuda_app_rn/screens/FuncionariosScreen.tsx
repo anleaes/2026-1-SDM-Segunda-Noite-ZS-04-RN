@@ -48,7 +48,7 @@ const FuncionariosScreen = ({ navigation }: Props) => {
       alert('Erro de API: ' + JSON.stringify(errorData));
       return;
     }
-    
+
     setfuncionarios(prev => prev.filter(u => u.id !== id));
   };
 
@@ -103,6 +103,8 @@ const FuncionariosScreen = ({ navigation }: Props) => {
       >
         <Ionicons name="add" size={28} color="#fff" />
       </TouchableOpacity>
+
+      <View style={{ height: 40 }} />
     </View>
   );
 };

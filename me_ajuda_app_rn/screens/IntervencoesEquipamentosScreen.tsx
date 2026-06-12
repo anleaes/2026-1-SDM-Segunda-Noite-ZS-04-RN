@@ -92,6 +92,8 @@ const IntervencoesEquipamentosScreen = ({ navigation }: Props) => {
       >
         <Ionicons name="add" size={28} color="#fff" />
       </TouchableOpacity>
+
+      <View style={{ height: 40 }} />
     </View>
   );
 };
